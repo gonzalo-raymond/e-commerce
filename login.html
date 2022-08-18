@@ -2,25 +2,66 @@
 <html lang="es">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
-  
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,600,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
   <style>
     body {
-      background-color: rgb(248, 249, 250);
+      background-color: #f8f9fa;
     }
   </style>
 </head>
 
 <body>
-  <main class="mt-5">
+  <main role="main" class="mt-5">
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <div class="text-center p-4">
+        <img class="signin" src="img/login.png" alt="logo">
+        <h2 class="login__title">Inicio de sesión</h2>
+        <form action="" method="" id="login__form">
+          <div>
+            <label class="login__label" for="email">Email</label><br>
+            <input type="email" class="form-control"  id="email"    value="" name="e-mail" placeholder="Email">
+            <div class="invalid-feedback">
+            
+            </div>
+            
+          </div>
+          <div>
+            <label class="login__label" for="pass">Contraseña</label><br>
+            <input type="password" class="form-control" id="pass" value="" name="pass" placeholder="Contraseña">
+            <div class="invalid-feedback">
+            
+            </div>
+          </div>
+          <button class="btn btn-primary btn-lg" type="submit" id="btnLogin">Ingresar</button>
+          <div class="login__google">
+            <p>Inicia sesión con Google</p>
+            <div id="g_id_onload"
+              data-client_id="214439263378-614cqh5otmojofat7tk50komlu2tlb2i.apps.googleusercontent.com"
+              data-login_uri="http://localhost:5500/index.html"
+              data-context="signin"
+              data-ux_mode="popup"
+              data-auto_select="true"
+              data-callback="handleCredentialResponse">
+            </div>
+
+            <div class="g_id_signin"
+              data-type="standard"
+              data-shape="rectangular"
+              data-theme="filled_blue"
+              data-text="signin"
+              data-size="large"
+              data-locale="es-419"
+              data-logo_alignment="left">
+            </div>
+
+          </div>
+        </form>
       </div>
     </div>
   </main>
@@ -29,11 +70,12 @@
       <p class="float-end">
         <a href="#">Volver arriba</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a> -
+      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank" rel="noopener noreferrer">Jovenes a Programar</a> -
         2022</p>
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
   </footer>
+  <script src="js/init.js"></script>
   <script src="js/login.js"></script>
 </body>
 

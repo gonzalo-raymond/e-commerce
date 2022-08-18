@@ -87,14 +87,14 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
-document.addEventListener("DOMContentLoaded", function(e){
-    getJSONData(CATEGORIES_URL).then(function(resultObj){
-        if (resultObj.status === "ok"){
-            currentCategoriesArray = resultObj.data
-            showCategoriesList()
-            //sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
-        }
-    });
+document.addEventListener("DOMContentLoaded", async ()=>{
+    const resultObj = await getJSONData(CATEGORIES_URL)
+    if (resultObj.status === "ok"){
+        currentCategoriesArray = resultObj
+        showCategoriesList()
+        //sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
+    }
+    
 
     document.getElementById("sortAsc").addEventListener("click", function(){
         sortAndShowCategories(ORDER_ASC_BY_NAME);

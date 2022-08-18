@@ -1,3 +1,7 @@
+body{
+  background-color: #f8f9fa;
+}
+
 .jumbotron,
 .card-body,
 .container,
@@ -187,4 +191,47 @@ a.custom-card:hover {
 
 .checked {
   color: orange;
+}
+
+.login__title{
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.login__label{
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: black;
+}
+
+input#email, input#pass{
+  margin: auto;
+  width: 300px;
+  border-radius: 4px;
+  outline: none;
+  padding: 5px 10px;
+  font-family: 'Raleway', serif;
+  font-weight: 400;
+}
+
+#btnLogin{
+  font-weight: 500;
+  margin-top: 30px;
+}
+
+input:focus::placeholder{
+  opacity: 0;
+}
+
+.login__google{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.login__google p{
+  margin-bottom: 5px;
+  font-weight: 500;
 }
