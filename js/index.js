@@ -25,5 +25,5 @@ document.addEventListener("DOMContentLoaded", function(){
     let user = JSON.parse(window.localStorage.getItem("userData"));
     
     console.log(loginStatus);
-    console.log(user.fullName);
+    
 });

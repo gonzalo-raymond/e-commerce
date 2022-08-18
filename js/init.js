@@ -8,6 +8,8 @@ const PRODUCT_INFO_COMMENTS_URL = `https://japceibal.github.io/emercado-api/prod
 const CART_INFO_URL = `https://japceibal.github.io/emercado-api/user_cart/`;
 const CART_BUY_URL = `https://japceibal.github.io/emercado-api/cart/buy.json`;
 
+
+
 //Variable que lee el valor de login status desde localstorage.
 let loginStatus = window.localStorage.getItem("loginStatus");
 
