@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", function(){
     //Variable que guarda los datos del usuario llamados desde el
     //localstorage en formato de objeto.
     let user = JSON.parse(window.localStorage.getItem("userData"));
+
+
     console.log(user.fullName);
     console.log(loginStatus);
-    
 });
