@@ -44,6 +44,15 @@ function showProductsList(array){
 //de los productos de una categoria.
 document.addEventListener("DOMContentLoaded", async ()=>{
 
+    //Condicional que evalua si el usuario no esta logeado y
+    //redirecciona a login.html
+    if(loginStatusInfo === "false" || loginStatusInfo === null){
+        window.location.replace("login.html");
+    }else{
+        showProfileTitle();
+        logOutEvent();
+    }
+
     const resultObj = await getJSONData(url)
     if (resultObj.status === "ok"){
         data = resultObj;

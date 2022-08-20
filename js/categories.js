@@ -88,6 +88,16 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", async ()=>{
+
+    //Condicional que evalua si el usuario no esta logeado y
+    //redirecciona a login.html
+    if(loginStatusInfo === "false" || loginStatusInfo === null){
+        window.location.replace("login.html");
+    }else{
+        showProfileTitle();
+        logOutEvent();
+    }
+
     const resultObj = await getJSONData(CATEGORIES_URL)
     if (resultObj.status === "ok"){
         currentCategoriesArray = resultObj

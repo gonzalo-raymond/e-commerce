@@ -21,9 +21,6 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("muebles").addEventListener("click", function() {
         localStorage.setItem("catID", 103);
         window.location = "products.html"
-    });
-
-    console.log(userDataG);
-    
+    }); 
     
 });

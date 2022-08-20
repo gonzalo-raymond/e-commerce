@@ -28,6 +28,16 @@ function updateTotalCosts(){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
+
+    //Condicional que evalua si el usuario no esta logeado y
+    //redirecciona a login.html
+    if(loginStatusInfo === "false" || loginStatusInfo === null){
+        window.location.replace("login.html");
+    }else{
+        showProfileTitle();
+        logOutEvent();
+    }
+
     document.getElementById("productCountInput").addEventListener("change", function(){
         productCount = this.value;
         updateTotalCosts();

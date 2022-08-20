@@ -24,17 +24,15 @@ let userEmailInfo = window.localStorage.getItem("userEmail");
 //Variable que guarda los datos de google del usuario llamados desde el
 //localstorage en formato de objeto.
 let userDataG = JSON.parse(window.localStorage.getItem("userData"));
-//console.log(userDataG.profileImg)
+
 let showProfileTitle = ()=>{
 
   let userMenuTitle = document.getElementById("navbarDarkDropdownMenuLink");
   let userProfileImg = document.getElementById("profile__img");
   
-
   if(userDataG != null){
     userMenuTitle.innerText = userDataG.email;
     userProfileImg.src = userDataG.profileImg;
-    console.log(userProfileImg)
   }else if(userEmailInfo != null){
     userMenuTitle.innerText = userEmailInfo;
   }

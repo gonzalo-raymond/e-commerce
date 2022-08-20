@@ -5,6 +5,8 @@ const warningPass = document.getElementById("warning__pass");
 const emailInput = document.getElementById("email");
 const passInput = document.getElementById("pass");
 
+
+
 //Función que actua cuando un campo no es valido.
 const validateFail = (input, msg) => {
   const inputContainer = input.parentElement;
@@ -40,9 +42,12 @@ const loginSubmitEvent = (e) => {
   let passOk = false;
   loginStatus(false);
 
+
   //Capturando los valores ingresados por el usuario.
   const emailValue = emailInput.value.trim();
   const passValue = passInput.value.trim();
+
+  
 
   
   //Validando campo Email.
@@ -61,8 +66,8 @@ const loginSubmitEvent = (e) => {
   if(!passValue){
     validateFail(passInput, "Ingresa tu contraseña");
     passOk = false;
-  }else if(passValue.length < 8){
-    validateFail(passInput, "La contraseña debe tener mínimo 8 caracteres");
+  }else if(passValue.length < 6){
+    validateFail(passInput, "La contraseña debe tener mínimo 6 caracteres");
     passOk = false;
   }else{
     validateOk(passInput);
@@ -107,8 +112,6 @@ globalThis.handleCredentialResponse = async (response) => {
    
   //Decodificando datos.
   let responsePayload = decodeJwtResponse(response.credential);
-
-  
 
   //Creando objeto que contiene los datos del usuario.
   let userData = {
