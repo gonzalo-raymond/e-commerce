@@ -2,8 +2,11 @@ document.addEventListener("DOMContentLoaded", function(){
 
     //Condicional que evalua si el usuario no esta logeado y
     //redirecciona a login.html
-    if(loginStatus === "false" || loginStatus === null){
+    if(loginStatusInfo === "false" || loginStatusInfo === null){
         window.location.replace("login.html");
+    }else{
+        showProfileTitle();
+        logOutEvent();
     }
     
 
@@ -20,8 +23,7 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 
-    //Variable que guarda los datos del usuario llamados desde el
-    //localstorage en formato de objeto.
-    let user = JSON.parse(window.localStorage.getItem("userData"));
+    console.log(userDataG);
+    
     
 });

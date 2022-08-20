@@ -235,3 +235,12 @@ input:focus::placeholder{
   margin-bottom: 5px;
   font-weight: 500;
 }
+
+#navbarNav p{
+  color: #ffffff8c;
+}
+
+.dropdown-menu, .dropdown-menu-dark{
+  width: 200px;
+}
+

@@ -9,9 +9,66 @@ const CART_INFO_URL = `https://japceibal.github.io/emercado-api/user_cart/`;
 const CART_BUY_URL = `https://japceibal.github.io/emercado-api/cart/buy.json`;
 
 
+//Función que le asugna un valor booleano a el status del login.
+let loginStatus = (booleano)=>{
+  window.localStorage.setItem("loginStatus", booleano)
+};
 
 //Variable que lee el valor de login status desde localstorage.
-let loginStatus = window.localStorage.getItem("loginStatus");
+let loginStatusInfo = window.localStorage.getItem("loginStatus");
+
+
+//Variable que contiene el email del usuario
+let userEmailInfo = window.localStorage.getItem("userEmail");
+
+//Variable que guarda los datos de google del usuario llamados desde el
+//localstorage en formato de objeto.
+let userDataG = JSON.parse(window.localStorage.getItem("userData"));
+//console.log(userDataG.profileImg)
+let showProfileTitle = ()=>{
+
+  let userMenuTitle = document.getElementById("navbarDarkDropdownMenuLink");
+  let userProfileImg = document.getElementById("profile__img");
+  
+
+  if(userDataG != null){
+    userMenuTitle.innerText = userDataG.email;
+    userProfileImg.src = userDataG.profileImg;
+    console.log(userProfileImg)
+  }else if(userEmailInfo != null){
+    userMenuTitle.innerText = userEmailInfo;
+  }
+}
+
+//Función que elimina los datos del usuario almacenados en
+// el localstorage.
+let userDataClean = ()=>{ 
+  
+  if(userDataG != null && userEmailInfo != null){
+    window.localStorage.removeItem("userData");
+    window.localStorage.removeItem("userEmail");
+  }else if(userDataG != null){
+    window.localStorage.removeItem("userData");
+  }else if(userEmailInfo != null){
+    window.localStorage.removeItem("userEmail");
+  }
+}
+
+
+
+//Función que cambia el loginStatus a false
+//y elimina los datos del usuario del localstorage.
+let logOut = ()=>{
+  loginStatus(false);
+  userDataClean();
+}
+
+let logOutEvent = ()=>{
+  let logOutBtn = document.getElementById("logOutBtn");
+  logOutBtn.addEventListener("click", ()=>{
+    logOut();
+  })
+};
 
 //Función que redirecciona a la url que le pase por parametro.
 let replace = (url)=>{

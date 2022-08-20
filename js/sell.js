@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function(e){
 
     //Se agrega una escucha en el evento 'submit' que será
     //lanzado por el formulario cuando se seleccione 'Vender'.
-    sellForm.addEventListener("submit", function(e){
+    sellForm.addEventListener("submit", async (e)=>{
 
         e.preventDefault(); 
         e.preventDefault();
@@ -122,28 +122,26 @@ document.addEventListener("DOMContentLoaded", function(e){
         {
             //Aquí ingresa si pasó los controles, irá a enviar
             //la solicitud para crear la publicación.
+            
 
-            getJSONData(PUBLISH_PRODUCT_URL).then(function(resultObj){
-                let msgToShowHTML = document.getElementById("resultSpan");
-                let msgToShow = "";
+            const resultObj = await getJSONData(PUBLISH_PRODUCT_URL)
+            let msgToShowHTML = document.getElementById("resultSpan");
+            let msgToShow = "";
     
-                //Si la publicación fue exitosa, devolverá mensaje de éxito,
-                //de lo contrario, devolverá mensaje de error.
-                //FUNCIONALIDAD NO IMPLEMENTADA
-                if (resultObj.status === 'ok')
-                {
-                    msgToShow = MSG;
-                    document.getElementById("alertResult").classList.add('alert-primary');
-                }
-                else if (resultObj.status === 'error')
-                {
-                    msgToShow = MSG;
-                    document.getElementById("alertResult").classList.add('alert-primary');
-                }
+            //Si la publicación fue exitosa, devolverá mensaje de éxito,
+            //de lo contrario, devolverá mensaje de error.
+            //FUNCIONALIDAD NO IMPLEMENTADA
+            if (resultObj.status === 'ok'){
+                msgToShow = MSG;
+                document.getElementById("alertResult").classList.add('alert-primary');
+            } else if (resultObj.status === 'error'){
+                msgToShow = MSG;
+                document.getElementById("alertResult").classList.add('alert-primary');
+            }
     
-                msgToShowHTML.innerHTML = msgToShow;
-                document.getElementById("alertResult").classList.add("show");
-            });
+            msgToShowHTML.innerHTML = msgToShow;
+            document.getElementById("alertResult").classList.add("show");
+            
         }
     });
 });

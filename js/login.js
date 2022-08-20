@@ -38,7 +38,7 @@ const loginSubmitEvent = (e) => {
   //para permitir o denegar acceso a la pagina.
   let emailOk = false;
   let passOk = false;
-  let loginStatus = false;
+  loginStatus(false);
 
   //Capturando los valores ingresados por el usuario.
   const emailValue = emailInput.value.trim();
@@ -72,13 +72,13 @@ const loginSubmitEvent = (e) => {
   //Codigo que evalua condiciones de acceso
   //y permite o deniega la entrada a la pagina.
   if (emailOk && passOk){
-    loginStatus = true;
-    window.localStorage.setItem("loginStatus", loginStatus);
+    loginStatus(true);
+    window.localStorage.setItem("userEmail", emailValue);
     replace("index.html")
   }else{
-    loginStatus = false;
-    window.localStorage.setItem("loginStatus", loginStatus);
-  }  
+    loginStatus(false);
+    userDataClean();
+  }
 };
 
 //Escuchando Evento de submit al cargar la pagina 
@@ -108,6 +108,8 @@ globalThis.handleCredentialResponse = async (response) => {
   //Decodificando datos.
   let responsePayload = decodeJwtResponse(response.credential);
 
+  
+
   //Creando objeto que contiene los datos del usuario.
   let userData = {
     id: responsePayload.sub,
@@ -123,7 +125,6 @@ globalThis.handleCredentialResponse = async (response) => {
   window.localStorage.setItem("userData", JSON.stringify(userData));
   
   //Cambiando Status del login y redireccionando a index.html.
-  let loginStatus = true;
-  window.localStorage.setItem("loginStatus", loginStatus);
+  loginStatus(true);
   replace("index.html");
 };
