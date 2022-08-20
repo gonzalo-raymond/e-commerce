@@ -244,3 +244,6 @@ input:focus::placeholder{
   width: 200px;
 }
 
+.navbar-brand{
+  margin-right: 0;
+}
