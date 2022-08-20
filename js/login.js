@@ -90,6 +90,9 @@ const loginSubmitEvent = (e) => {
 //que actua sobre el boton de Ingresar y activa la función de
 //validación de datos.
 window.addEventListener("load", () => {
+  if(loginStatusInfo === "true"){
+    replace("index.html");
+  }
   loginForm.addEventListener("submit", loginSubmitEvent);
 });
 
