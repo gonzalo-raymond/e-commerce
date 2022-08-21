@@ -19,7 +19,7 @@ const validateFail = (input, msg) => {
 const validateOk = (input) => {
   const inputContainer = input.parentElement;
   const warning = inputContainer.querySelector("div");
-  warning.innerHTML = "";
+  warning.innerHTML = ``;
   input.classList.remove('is-invalid');
 };
 
@@ -93,6 +93,7 @@ window.addEventListener("load", () => {
   if(loginStatusInfo === "true"){
     replace("index.html");
   }
+
   loginForm.addEventListener("submit", loginSubmitEvent);
 });
 

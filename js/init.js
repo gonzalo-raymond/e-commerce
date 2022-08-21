@@ -61,6 +61,7 @@ let logOut = ()=>{
   userDataClean();
 }
 
+//Función que añade evento de escucha al boton de logout en el e-mercado
 let logOutEvent = ()=>{
   let logOutBtn = document.getElementById("logOutBtn");
   logOutBtn.addEventListener("click", ()=>{
@@ -81,6 +82,8 @@ let hideSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "none";
 }
 
+
+//Función async await que realiza un fetch y devuelve objeto json()
 const  getJSONData = async (url) => {
   showSpinner();
   let result = {};
