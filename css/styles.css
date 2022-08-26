@@ -247,3 +247,13 @@ input:focus::placeholder{
 .navbar-brand{
   margin-right: 0;
 }
+
+#search-bar{
+  max-width: 350px;
+  margin-bottom: -38px;
+  margin-left: -11px;
+}
+
+.ocultar{
+  display: none;
+}

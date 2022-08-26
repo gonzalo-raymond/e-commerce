@@ -4,7 +4,11 @@ const warningEmail = document.getElementById("warning__email");
 const warningPass = document.getElementById("warning__pass");
 const emailInput = document.getElementById("email");
 const passInput = document.getElementById("pass");
+const regBtn = document.getElementById("btnRegister");
 
+regBtn.addEventListener("click", ()=>{
+  replace("register.html")
+});
 
 
 //Función que actua cuando un campo no es valido.
@@ -42,6 +46,7 @@ const loginSubmitEvent = (e) => {
   let passOk = false;
   loginStatus(false);
 
+  
 
   //Capturando los valores ingresados por el usuario.
   const emailValue = emailInput.value.trim();

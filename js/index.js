@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(){
     if(loginStatusInfo === "false" || loginStatusInfo === null){
         window.location.replace("login.html");
     }else{
-        showProfileTitle();
+        showProfileMenu();
         logOutEvent();
     }
     

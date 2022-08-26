@@ -1,6 +1,7 @@
 const ORDER_ASC_BY_NAME = "AZ";
 const ORDER_DESC_BY_NAME = "ZA";
-const ORDER_BY_PROD_COUNT = "Cant.";
+const ORDER_ASC_BY_PROD_COUNT = "CantA.";
+const ORDER_DESC_BY_PROD_COUNT = "CantD.";
 let currentCategoriesArray = [];
 let currentSortCriteria = undefined;
 let minCount = undefined;
@@ -21,18 +22,27 @@ function sortCategories(criteria, array){
             if ( a.name < b.name ){ return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_BY_PROD_COUNT){
+    }else if (criteria === ORDER_ASC_BY_PROD_COUNT){
         result = array.sort(function(a, b) {
             let aCount = parseInt(a.productCount);
             let bCount = parseInt(b.productCount);
 
-            if ( aCount > bCount ){ return -1; }
-            if ( aCount < bCount ){ return 1; }
-            return 0;
+            /*if ( aCount > bCount ){ return -1; }
+            if ( aCount < bCount ){ return 1; }*/
+            return aCount - bCount;
+        });
+    }else if(criteria === ORDER_DESC_BY_PROD_COUNT){
+        result = array.sort(function(a, b) {
+            let aCount = parseInt(a.productCount);
+            let bCount = parseInt(b.productCount);
+
+            /*if ( aCount < bCount ){ return 1; }
+            if ( aCount > bCount ){ return -1; }*/
+            return bCount - aCount;
         });
     }
 
-    return result;
+    return result
 }
 
 function setCatID(id) {
@@ -94,7 +104,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     if(loginStatusInfo === "false" || loginStatusInfo === null){
         window.location.replace("login.html");
     }else{
-        showProfileTitle();
+        showProfileMenu();
         logOutEvent();
     }
 
@@ -114,8 +124,12 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         sortAndShowCategories(ORDER_DESC_BY_NAME);
     });
 
-    document.getElementById("sortByCount").addEventListener("click", function(){
-        sortAndShowCategories(ORDER_BY_PROD_COUNT);
+    document.getElementById("sortAscByCount").addEventListener("click", function(){
+        sortAndShowCategories(ORDER_ASC_BY_PROD_COUNT);
+    });
+
+    document.getElementById("sortDescByCount").addEventListener("click", function(){
+        sortAndShowCategories(ORDER_DESC_BY_PROD_COUNT);
     });
 
     document.getElementById("clearRangeFilter").addEventListener("click", function(){

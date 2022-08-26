@@ -25,7 +25,7 @@ let userEmailInfo = window.localStorage.getItem("userEmail");
 //localstorage en formato de objeto.
 let userDataG = JSON.parse(window.localStorage.getItem("userData"));
 
-let showProfileTitle = ()=>{
+let showProfileMenu = ()=>{
 
   let userMenuTitle = document.getElementById("navbarDarkDropdownMenuLink");
   let userProfileImg = document.getElementById("profile__img");
