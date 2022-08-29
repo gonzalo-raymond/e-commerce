@@ -13,16 +13,27 @@ let currentSortCriteria = undefined;
 let minPrice = undefined;
 let maxPrice = undefined;
 
-
+//DESAFIATE!
+//Elementos del DOM necesarios para el funcionamiento de la barra de busqueda. 
 const searchInput = document.getElementById("search-input");
 const searchItems = document.getElementsByClassName("search-item");
 const searchParams = document.getElementsByClassName("search-param");
 
+//Evento de tipo keyup (presionar tecla) sobre el input de la busqueda.
 searchInput.addEventListener("keyup", (e)=>{
 
+    //Variable que guarda el valor de las teclas presionadas
     let searchText = e.target.value;
+
+    //Variable que guarda las expresiones regulares que usaremos
+    // para filtrar coincidencias en la busqueda y admitan
+    // minusculas y mayusculas indistintamente.
     let regExp = new RegExp(searchText, "i")
 
+    //Ciclo for que recorre el array de elementos en la busqueda,
+    //y a cada uno lo somete a una prueba haciendo uso de expresiones regulares.
+    //Si no pasa la prueba se añade una clase de CSS que oculta el elemento,
+    //mostrando solo los que coinciden con los parametros ingresados por el usuario.
     for(let i=0 ; i < searchItems.length; i++){
        let searchParam = searchParams[i];
        let searchResult = searchItems[i];
@@ -37,7 +48,9 @@ searchInput.addEventListener("keyup", (e)=>{
 
 
 
-
+//Función que toma un array de productos y un criterio como parametros
+// y devuelve un array ordenado segun el criterio determinado haciendo uso
+//del metodo sort().
 function sortProducts(criteria, array){
 
     let result = [];
@@ -73,6 +86,8 @@ function sortProducts(criteria, array){
     return result
 }
 
+//Función que guarda en localstorage con la palabra clave prodID
+//un número de identificación unico para cada producto.
 function setProdID(id) {
     localStorage.setItem("prodID", id);
     window.location = "product-info.html"
@@ -115,15 +130,15 @@ function showProductsList(){
     }
 }
 
-function sortAndShowProducts(sortCriteria, productsArray){
+//Función que recibe un criterio de orden como parametro para luego llamar en su interior
+//a la función de sortProducts() a la que le pasamos por parametros el criterio de orden antes mencionado
+//y el array de productos que nos devuelve el fetch. Dando como resultado un array ordenado y a ese array
+//le asigna la variable que usamos en la función de showProductsList() para luego llamar a esa misma función
+//y que se muestre el listado de productos ordenados en nuestro html de productos.
+function sortAndShowProducts(sortCriteria){
 
     currentSortCriteria = sortCriteria;
 
-    if(productsArray != undefined){
-        currentProductsArray = productsArray;
-    }
-
-    
     currentProductsArray = sortProducts(currentSortCriteria, currentProductsArray);
         
    
@@ -146,6 +161,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         logOutEvent();
     }
 
+    //Codigo que hace fetch a la url dinamica de productos.
     const resultObj = await getJSONData(url)
     if (resultObj.status === "ok"){
         data = resultObj;
@@ -154,18 +170,27 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     }
 
 
+    //Evento de tipo click que ordena y muestra la lista de productos
+    //segun criterio de precio de producto en orden ascendente.
     document.getElementById("sortAscByPrice").addEventListener("click", function(){
         sortAndShowProducts(ORDER_ASC_BY_PROD_PRICE);
     });
 
+    //Evento de tipo click que ordena y muestra la lista de productos
+    //segun criterio de precio de producto en orden descendente.
     document.getElementById("sortDescByPrice").addEventListener("click", function(){
         sortAndShowProducts(ORDER_DESC_BY_PROD_PRICE);
     });
 
+    //Evento de tipo click que ordena y muestra la lista de productos
+    //segun criterio de relevancia de producto (cantidad vendida) en 
+    //orden descendente.
     document.getElementById("sortDescByRel").addEventListener("click", function(){
         sortAndShowProducts(ORDER_DESC_BY_PROD_REL);
     });
 
+    //Evento de tipo click que le hace reset al filtro de rango de precio y
+    //muestra la lista de productos completa.
     document.getElementById("clearRangeFilter").addEventListener("click", function(){
         document.getElementById("rangeFilterPriceMin").value = "";
         document.getElementById("rangeFilterPriceMax").value = "";
@@ -176,6 +201,8 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         showProductsList();
     });
 
+    //Evento de tipo click que muestra la lista de productos que cumplen con un
+    //valor del precio dentro de un rango minimo - maximo.
     document.getElementById("rangeFilterPrice").addEventListener("click", function(){
         //Obtengo el mínimo y máximo de los intervalos para filtrar por precio
         //de productos en la categoría.

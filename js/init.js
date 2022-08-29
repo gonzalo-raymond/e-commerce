@@ -9,7 +9,7 @@ const CART_INFO_URL = `https://japceibal.github.io/emercado-api/user_cart/`;
 const CART_BUY_URL = `https://japceibal.github.io/emercado-api/cart/buy.json`;
 
 
-//Función que le asugna un valor booleano a el status del login.
+//Función que le asigna un valor booleano a el status del login.
 let loginStatus = (booleano)=>{
   window.localStorage.setItem("loginStatus", booleano)
 };
@@ -74,10 +74,12 @@ let replace = (url)=>{
   window.location.replace(url);
 }
 
+//Codigo que muestra la animacion de carga de la pagina. 
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
 }
 
+//Codigo que oculta la animacion de carga de la pagina. 
 let hideSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "none";
 }
