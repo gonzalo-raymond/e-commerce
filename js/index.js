@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function(){
     //Condicional que evalua si el usuario no esta logeado y
     //redirecciona a login.html
     if(loginStatusInfo === "false" || loginStatusInfo === null){
-        window.location.replace("login.html");
+        replace("login.html");
     }else{
         showProfileMenu();
         logOutEvent();

@@ -257,3 +257,56 @@ input:focus::placeholder{
 .ocultar{
   display: none;
 }
+
+.dot::after {
+  content: "•";
+  display: inline-block;
+}
+
+img, svg {
+  vertical-align: middle;
+}
+
+.rating-stars {
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  white-space: nowrap;
+  clear: both;
+}
+
+.rating-stars li {
+  display: block;
+  text-overflow: clip;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.rating-stars img {
+  height: 16px;
+  max-width: none;
+}
+
+.div-width{
+  width: 350px;
+}
+
+.input-width{
+  width: 250px;
+}
+
+#saveBtn{
+  margin-left: 85px;
+}
+
+#profile-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 110px;
+}
+
+#profile-card{
+  width: 650px;
+}
