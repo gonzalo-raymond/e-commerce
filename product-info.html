@@ -81,20 +81,26 @@
           </article> <!-- gallery-wrap .end// -->
         </aside>
         <main class="col-lg-6">
-          <article class="ps-lg-3">
+          <article class="ps-lg-3 prod-info">
             <h4 class="title text-dark" id="title">Title</h4>
-            <div class="rating-wrap my-3">
+            <div class="rating-wrap my-3 prod-stats">
               <ul class="rating-stars">
-                <li style="width:80%" class="stars-active">
-                  <img src="img/stars-active.svg" alt="">
-                </li>
-                <li>
-                  <img src="img/starts-disable.svg" alt="">
+                <li id="avgStarScore">
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
                 </li>
               </ul>
-              <b class="label-rating text-warning">Score</b>
-              <i class="dot"></i>
-              <span class="label-rating text-success">In stock</span>
+              <b class="label-rating text-warning">Puntuación <span id="avgScore"></span></b>
+              <i class="fas dot text-muted"></i>
+              <div class="sold-container">
+                <i class="fas fa-shopping-basket sold-icon"></i>
+                <p id="vendidos"></p>
+              </div>
+              <i class="fas dot text-muted"></i>
+              <span class="label-rating text-success">En Stock</span>
             </div> <!-- rating-wrap.// -->
 
             <div class="mb-3">
@@ -106,7 +112,7 @@
 
             <hr>
 
-            <div class="col-md-4 col-6 mb-3">
+            <div class="col-md-4 col-6 mb-3" id="cart-btn">
               <div class="row flex-nowrap">
                 <a href="#" class="btn  btn-primary"> <i class="me-1 fa fa-shopping-basket"></i> Agregar al carrito </a>
               </div>
@@ -127,19 +133,50 @@
             <div class="row">
               <div class="col-lg-8">
                 
-                <div class="card mb-4">
-                  <div class="card-body" id="comments-container">
+                <div class="card mb-4 comments-card">
+                  <div class="card-body">
                     <h5 class="card-title">Comentarios</h5>
                     <hr>
+                  </div>
+                  <div class="card-body" id="comments-container">
+                    
+                    
 
+                  </div>
+                  <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;" id="commentBox">
+                    <h5 class="">Comentar</h5>
+                    <div class="d-flex flex-start w-100 mt-4">
+                      <img class="rounded-circle shadow-1-strong me-3" src="img/img_perfil.png" alt="avatar" width="40" height="40" id="commentProfileImg"/>
+                      <div class="form-outline w-100">
+                        <textarea class="form-control" id="commentTextArea" rows="4" style="background: #fff;" placeholder="Tu comentario"></textarea>
+                        <p class="invalid-feedback" id="invalid-comment">Debe ingresar un comentario</p>
+                      </div>
+                    </div>
+                    <p id="star-widget-title">Tu puntuación</p>
+                    <div class="star-widget mt-2 pt-1 float-start">
+                      <input type="radio" name="rate" id="rate-5">
+                      <label for="rate-5" class="fas fa-star"></label>
+                      <input type="radio" name="rate" id="rate-4">
+                      <label for="rate-4" class="fas fa-star"></label>
+                      <input type="radio" name="rate" id="rate-3">
+                      <label for="rate-3" class="fas fa-star"></label>
+                      <input type="radio" name="rate" id="rate-2">
+                      <label for="rate-2" class="fas fa-star"></label>
+                      <input type="radio" name="rate" id="rate-1">
+                      <label for="rate-1" class="fas fa-star"></label>
+                    </div>
+                    <p class="invalid-feedback" id="invalid-rate">Debe seleccionar una puntuación</p>
+                    <div class="float-end mt-2 pt-1">
+                      <button type="button" class="btn btn-primary btn-sm" id="sendBtn">Enviar</button>
+                    </div>
                   </div>
                 </div>
                
               </div> <!-- col.// -->
               <div class="col-lg-4">
-                <div class="card text-center">
+                <div class="card text-center related-card">
                   <div class="card-body">
-                    <h5 class="card-title"><span id="cat-name"></span> Relacionados</h5>
+                    <h5 class="card-title rel-title"><span id="cat-name"></span> Relacionados</h5>
       
                     <article class="itemside mb-3" id="related-prods-container">
                       <a href="#" class="aside">
@@ -152,15 +189,16 @@
                   </div> <!-- card-body .// -->
                 </div> <!-- card .// -->
                 <article class="card">
-                  <div class="card-body"> <a href="#" class="btn w-100 btn-primary-light">Write review</a>
+                  <div class="card-body">
                     <div class="rating-wrap mt-3">
                       <ul class="rating-stars stars-lg">
-                        <li style="width:80%" class="stars-active"> <img
-                            src="img/stars-active.svg" alt=""> </li>
-                        <li> <img height="520" src="img/starts-disable.svg" alt=""> </li>
-                      </ul> <b class="label-rating text-lg"> 4.6 out of 5 </b>
+                        <li>
+                          <img height="520" src="img/starts-disable.svg" alt="">
+                        </li>
+                      </ul>
+                      <b class="label-rating text-lg"> 4 out of 5 </b>
                     </div> <!-- rating-wrap.// -->
-                    <p class="mt-1 text-muted"> 320 reviews </p>
+                    <p class="mt-1 text-muted"> 320 Comentarios </p>
                     <table class="table table-borderless table-sm">
                       <tbody>
                         <tr valign="middle">
@@ -246,10 +284,13 @@
       <div></div>
     </div>
   </div>
+  <div id="myModal" class="modal">
+    <span class="close" onclick="pictureClose()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/product-info.js"></script>
-  <script src="js/fslightbox.js"></script>
 </body>
 
 </html>

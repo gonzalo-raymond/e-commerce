@@ -310,3 +310,244 @@ img, svg {
 #profile-card{
   width: 650px;
 }
+
+span.fa.fa-star{
+  color: #d3d3d3;
+}
+
+span.fa.fa-star.checked{
+  color: #ff9017;
+}
+
+#commentTextArea:focus::placeholder{
+ opacity: 0;
+}
+
+#commentBox{
+  margin-top: -30px;
+}
+
+.star-widget{
+  display: flex;
+  flex-direction: row-reverse;
+  margin-left: 60px;
+}
+
+.star-widget input{
+  display: none;
+}
+
+.star-widget label{
+  font-size: 20px;
+  color: #d3d3d3;
+  padding: 2px;
+  transition: all 0.2s ease;
+}
+
+.star-widget input:not(:checked) ~ label:hover,
+.star-widget input:not(:checked) ~ label:hover ~ label{
+  color: #ff9017;
+}
+
+.star-widget input:checked ~ label{
+  color: #ff9017;
+}
+
+#star-widget-title{
+  margin-left: 63px;
+  margin-top: 16px;
+  margin-bottom: -10px;
+}
+
+#invalid-rate{
+  margin-left: 63px;
+  margin-top: 40px;
+  margin-bottom: -50px;
+}
+
+#invalid-comment{
+  margin-bottom: -10px;
+}
+
+.comments-card{
+  margin: 20px 0;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+.related-card{
+  margin: 20px 0;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+.related-card-item{
+  margin-bottom: 30px;
+  -webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+
+.related-card-item:hover{
+  -webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+.related-card-item:hover .related-text{
+  color: #0d6efd;
+}
+
+.related-img{
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  margin-bottom: 5px;
+ 
+}
+
+.related-text{
+  text-decoration: none;
+  font-family: 'Raleway', serif;
+  color: #212529;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.rel-title{
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.rel-title span{
+  font-weight: bold;
+}
+
+.sold-icon{
+  color: #0d6efd;
+}
+
+.prod-stats{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sold-container{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sold-container p{
+  margin-bottom: 2px;
+}
+
+.prod-info{
+  height: 385px;
+}
+
+#cart-btn{
+  width: 200px;
+  position: absolute;
+  bottom: 300px;
+  right: 490px;
+}
+
+#title{
+  margin-top: 30px;
+  margin-bottom: 80px;
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 40px;
+}
+
+#thumbs-img-container{
+  margin-top: 10px;
+  text-align: center;
+}
+
+.item-thumb{
+  margin: 0 2px;
+  text-decoration: none;
+  opacity: 0.6;
+  transition: .2s ease-in-out;
+}
+
+.item-thumb:hover{
+  opacity: 1;
+}
+
+#bigImg{
+  cursor: zoom-in;
+  transition: 0.3s;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  transition: all 0.3s ease;
+}
+
+/* Modal Content (image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 900px;
+}
+
+/* Add Animation */
+.modal-content, #caption {  
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.3s;
+  animation-name: zoom;
+  animation-duration: 0.3s;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)} 
+  to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
+
+#avgScore{
+  font-family: monospace;
+  font-size: 16px;
+}
