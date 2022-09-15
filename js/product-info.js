@@ -8,11 +8,7 @@ let prodID = localStorage.getItem("prodID"),
     commentsCount = 0,
     totalScoreCount = 0,
     commentStatus = false,
-    productCoverImg = "";
-
-
-    
-    
+    productCoverImg = ""; 
 
 const productTitle = document.querySelector("#title"),
       productprice = document.querySelector("#price"),
@@ -41,68 +37,69 @@ const productTitle = document.querySelector("#title"),
 
       ORDER_BY_COMMENT_DATE = "dateOrd";
 
-      
-
 function setProdID(id) {
   localStorage.setItem("prodID", id);
   window.location = "product-info.html"
-}
+};
 
 const showProductInfo = () => {
 
   let {name: name, currency: currency, cost: cost, description: description, category: category, images: images, relatedProducts: relatedProducts, soldCount: unitsSold} = productInfo;
 
-    productTitle.innerText = name;
+  productTitle.innerText = name;
 
-    productprice.innerText = `${currency} ${cost}`;
+  productprice.innerText = `${currency} ${cost}`;
 
-    productdescription.innerText = description;
+  productdescription.innerText = description;
 
-    categoryNameContainer.innerText = category;
+  categoryNameContainer.innerText = category;
 
-    soldCountContainer.innerText = `${unitsSold} vendidos`;
+  soldCountContainer.innerText = `${unitsSold} vendidos`;
 
-    productCoverImg = images[0];
+  productCoverImg = images[0];
 
-    productCoverImgContainer.innerHTML = `
-      <a data-fslightbox="mygalley" data-type="image" href="#"> 
-        <img width="625" src="${productCoverImg}" onclick="fullPicture()" id="bigImg">
+  productCoverImgContainer.innerHTML = `
+    <a data-fslightbox="mygalley" data-type="image" href="#"> 
+      <img width="625" src="${productCoverImg}" onclick="fullPicture()" id="bigImg">
+    </a>
+  `;    
+
+  let productImages = "";
+
+  for(let i=0; i < images.length; i++){
+
+    let productThumbImg = images[i];
+
+    productImages += `
+      <a data-fslightbox="mygalley" data-type="image" href="#" class="item-thumb"> 
+        <img width="130" src="${productThumbImg}" onclick="doBigger(this)" class="img-thumbnail">
       </a>
-    `;    
+    `
+  }
 
-    let productImages = "";
+  productThumbsImgContainer.innerHTML = productImages;
 
-    for(let i=0; i < images.length; i++){
-      let productThumbImg = images[i];
-      productImages += `
-        <a data-fslightbox="mygalley" data-type="image" href="#" class="item-thumb"> 
-          <img width="130" src="${productThumbImg}" onclick="doBigger(this)" class="img-thumbnail">
+  let relatedProductsContent = "";
+
+  for(let j=0; j < relatedProducts.length; j++){
+
+    let relatedProduct = relatedProducts[j];
+
+    let {id: relId, name: relName, image: relImage} = relatedProduct;
+
+    relatedProductsContent += `
+      <div class="related-card-item">
+        <a href="product-info.html" onclick="setProdID(${relId})" class="aside">
+          <img src="${relImage}" width="250" height="96" class="img-md img-thumbnail related-img">
         </a>
-      `
-    }
+        <div class="info">
+          <a href="product-info.html" onclick="setProdID(${relId})" class="title mb-1 related-text">${relName}</a>
+        </div>
+      </div>
+    `;
+  }
 
-    productThumbsImgContainer.innerHTML = productImages;
-
-    let relatedProductsContent = "";
-
-    for(let j=0; j < relatedProducts.length; j++){
-        let relatedProduct = relatedProducts[j];
-
-        let {id: relId, name: relName, image: relImage} = relatedProduct;
-
-        relatedProductsContent += `
-          <div class="related-card-item">
-            <a href="product-info.html" onclick="setProdID(${relId})" class="aside">
-              <img src="${relImage}" width="250" height="96" class="img-md img-thumbnail related-img">
-            </a>
-            <div class="info">
-              <a href="product-info.html" onclick="setProdID(${relId})" class="title mb-1 related-text">${relName}</a>
-            </div>
-          </div>
-        `;
-    }
-
-    relatedProductsContainer.innerHTML = relatedProductsContent;
+  relatedProductsContainer.innerHTML = relatedProductsContent;
 
     
 
@@ -119,16 +116,16 @@ sortComments = (criteria, array) =>{
   let result = [];
   
   if (criteria === ORDER_BY_COMMENT_DATE){
-      result = array.sort(function(a, b) {
+    result = array.sort(function(a, b) {
 
-          let aDate = a.dateTime;
-          let bDate = b.dateTime;
+      let aDate = a.dateTime;
+      let bDate = b.dateTime;
 
-          if ( aDate < bDate ){ return -1; }
-          if ( aDate > bDate ){ return 1; }
+      if ( aDate < bDate ){ return -1; }
+      if ( aDate > bDate ){ return 1; }
 
-          return 0;
-      });
+      return 0;
+    });
   }
   return result
 },
@@ -144,16 +141,16 @@ addComment = (array) => {
       secondDigitMonth = "",
       secondDigitDate = "";
 
-      score = rate1.checked ? score = 1 : rate2.checked ? score = 2 : rate3.checked ? score = 3 : rate4.checked ? score = 4 : rate5.checked ? score = 5 : score = 0;
+  score = rate1.checked ? score = 1 : rate2.checked ? score = 2 : rate3.checked ? score = 3 : rate4.checked ? score = 4 : rate5.checked ? score = 5 : score = 0;
       
-      if(nonFormatDate.getMonth() + 1 < 10 && nonFormatDate.getDate() < 10){
-        secondDigitMonth = 0;
-        secondDigitDate = 0;
-      }else if(nonFormatDate.getMonth() + 1 < 10){
-        secondDigitMonth = 0;
-      }else if(nonFormatDate.getDate() < 10){
-        secondDigitDate = 0;
-      }
+  if(nonFormatDate.getMonth() + 1 < 10 && nonFormatDate.getDate() < 10){
+    secondDigitMonth = 0;
+    secondDigitDate = 0;
+  }else if(nonFormatDate.getMonth() + 1 < 10){
+    secondDigitMonth = 0;
+  }else if(nonFormatDate.getDate() < 10){
+    secondDigitDate = 0;
+  }
 
   let date = `${nonFormatDate.getFullYear()}-${secondDigitMonth}${nonFormatDate.getMonth() + 1}-${secondDigitDate}${nonFormatDate.getDate()} ${new Intl.DateTimeFormat('es-UY', timeOptions).format(nonFormatDate)}`;
      
@@ -219,11 +216,11 @@ showProductComments = () =>{
             <div class="rating-wrap">
               <ul class="rating-stars">
                 <li style="width:80%" class="stars-active"> 
-                  <span class="fa fa-star ${stars[0]}"></span>
-                  <span class="fa fa-star ${stars[1]}"></span>
-                  <span class="fa fa-star ${stars[2]}"></span>
-                  <span class="fa fa-star ${stars[3]}"></span>
-                  <span class="fa fa-star ${stars[4]}"></span> 
+                  <span class="fas fa-star ${stars[0]}"></span>
+                  <span class="fas fa-star ${stars[1]}"></span>
+                  <span class="fas fa-star ${stars[2]}"></span>
+                  <span class="fas fa-star ${stars[3]}"></span>
+                  <span class="fas fa-star ${stars[4]}"></span> 
                 </li>
               </ul> 
               <i class="fas dot text-muted"></i>
@@ -244,34 +241,68 @@ showProductComments = () =>{
 
 avgProductScore = () =>{
 
-  let avgScore = totalScoreCount / commentsCount;
+  let avgScore = totalScoreCount / commentsCount,
+  
+      starsTotal = 5,
+   
+      starPercentage = (avgScore / starsTotal) * 100,
 
-  if(commentsCount === 0){
+      starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`,
+
+      twoDigitsAvgScore = avgScore.toFixed(1),
+
+      oneDigitAvgScore = avgScore.toFixed(0);
+
+  if(twoDigitsAvgScore === 0.5){
+    starPercentageRounded = "10%";
+
+  }else if(twoDigitsAvgScore >= 0.6 && twoDigitsAvgScore <= 1.4){
+    starPercentageRounded = "20%";
+    avgScore = oneDigitAvgScore;
+
+  }else if(twoDigitsAvgScore === 1.5){
+    starPercentageRounded = "30%";
+
+  }else if(twoDigitsAvgScore >= 1.6 && twoDigitsAvgScore <= 2.4){
+    starPercentageRounded = "40%";
+    avgScore = oneDigitAvgScore;
+
+  }else if(twoDigitsAvgScore === 2.5){
+    starPercentageRounded = "50%";
+
+  }else if(twoDigitsAvgScore >= 2.6 && twoDigitsAvgScore <= 3.4){
+    starPercentageRounded = "60%";
+    avgScore = oneDigitAvgScore;
+
+  }else if(twoDigitsAvgScore === 3.5){
+    starPercentageRounded = "70%";
+
+  }else if(twoDigitsAvgScore >= 3.6 && twoDigitsAvgScore <= 4.4){
+    starPercentageRounded = "80%";
+    avgScore = oneDigitAvgScore;
+
+  }else if(twoDigitsAvgScore === 4.5){
+    starPercentageRounded = "90%";
+
+  }else if(twoDigitsAvgScore >= 4.6){
+    starPercentageRounded = "100%";
+    avgScore = 5;
+
+  }
+
+  if(commentsCount === 0 || avgScore <= 0.4){
+
+    starPercentageRounded = "0%";
     avgScore = 0;
-    avgScoreContainer.innerText = `${Math.round(avgScore)}/5`;
+    avgScoreContainer.innerText = `${avgScore}`;
+
   }else{
-    avgScoreContainer.innerText = `${Math.round(avgScore)}/5`;
+
+    avgScoreContainer.innerText = `${avgScore}`;
+
   }
 
-
-  for(let s=0; s < Math.round(avgScore); s++){
-
-    if(commentStatus){
-
-      for(let l=0; l < avgStarList.length; l++){
-
-        avgStarList[l].classList.remove("checked");
-         
-      }
-
-      avgStarList[s].classList.add("checked");
-      commentStatus = false;
-      
-    }else{
-      avgStarList[s].classList.add("checked");
-    }
-    
-  }
+  document.querySelector(".stars-inner").style.width = starPercentageRounded;
 
 };
 
@@ -336,40 +367,37 @@ pictureClose = () =>{
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-    //Condicional que evalua si el usuario no esta logeado y
-    //redirecciona a login.html
-    if(loginStatusInfo === "false" || loginStatusInfo === null){
-        replace("login.html");
-    }else{
-        showProfileMenu();
-        if(userDataG != null){
-          userImg.src = userDataG.profileImg;
-        }
-        logOutEvent();
+  //Condicional que evalua si el usuario no esta logeado y
+  //redirecciona a login.html
+  if(loginStatusInfo === "false" || loginStatusInfo === null){
+    replace("login.html");
+  }else{
+    showProfileMenu();
+    if(userDataG != null){
+      userImg.src = userDataG.profileImg;
     }
+    logOutEvent();
+  }
     
-    //Codigo que hace fetch a la url dinamica de un producto.
-    const productObj = await getJSONData(prodUrl)
-    if (productObj.status === "ok"){
-        productInfo = productObj;
-        showProductInfo()
-    }
+  //Codigo que hace fetch a la url dinamica de un producto.
+  const productObj = await getJSONData(prodUrl)
+  if (productObj.status === "ok"){
+    productInfo = productObj;
+    showProductInfo()
+  }
 
-    let comments = JSON.parse(localStorage.getItem(`comments${prodID}`));
+  let comments = JSON.parse(localStorage.getItem(`comments${prodID}`));
 
-    //Codigo que hace fetch a la url dinamica de un producto.
-    const commentsObj = await getJSONData(commentsUrl)
-    if (commentsObj.status === "ok" && comments === null){
-      commentsInfo = commentsObj;
-      commentsInfo = sortComments(ORDER_BY_COMMENT_DATE, commentsInfo);
-      showProductComments();
-      avgProductScore();
-    }else{
-      commentsInfo = comments;
-      showProductComments();
-      avgProductScore();
-    }
-
-   
-    
+  //Codigo que hace fetch a la url dinamica de un producto.
+  const commentsObj = await getJSONData(commentsUrl)
+  if (commentsObj.status === "ok" && comments === null){
+    commentsInfo = commentsObj;
+    commentsInfo = sortComments(ORDER_BY_COMMENT_DATE, commentsInfo);
+    showProductComments();
+    avgProductScore();
+  }else{
+    commentsInfo = comments;
+    showProductComments();
+    avgProductScore();
+  }
 });

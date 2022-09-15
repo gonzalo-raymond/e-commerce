@@ -311,11 +311,11 @@ img, svg {
   width: 650px;
 }
 
-span.fa.fa-star{
+span.fas.fa-star{
   color: #d3d3d3;
 }
 
-span.fa.fa-star.checked{
+span.fas.fa-star.checked{
   color: #ff9017;
 }
 
@@ -550,4 +550,32 @@ span.fa.fa-star.checked{
 #avgScore{
   font-family: monospace;
   font-size: 16px;
+}
+
+.stars-outer{
+  position: relative;
+  display: inline-block;
+}
+
+.stars-inner{
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
+.stars-outer::before{
+  content: "\f005  \f005  \f005  \f005  \f005";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #d3d3d3;
+}
+
+.stars-inner::before{
+  content: "\f005  \f005  \f005  \f005  \f005";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #ff9017;
 }
