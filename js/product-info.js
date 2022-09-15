@@ -25,6 +25,7 @@ const productTitle = document.querySelector("#title"),
       soldCountContainer = document.querySelector("#vendidos"),
 
       productCommentsContainer = document.querySelector("#comments-container"),
+      commentsNumbContainer = document.querySelector(".comments-number"),
       rate1 = document.querySelector("#rate-1"),
       rate2 = document.querySelector("#rate-2"),
       rate3 = document.querySelector("#rate-3"),
@@ -180,7 +181,13 @@ showProductComments = () =>{
   let blockQuote = "";
 
   commentsCount = commentsInfo.length;
-       
+
+  if(commentsCount === 1){
+    commentsNumbContainer.innerText = `${commentsCount} Comentario`;
+  }else{
+    commentsNumbContainer.innerText = `${commentsCount} Comentarios`;
+  }
+
   for(let k=0; k < commentsInfo.length; k++){
 
     let comment = commentsInfo[k],
