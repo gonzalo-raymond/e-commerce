@@ -446,9 +446,9 @@ span.fas.fa-star.checked{
 
 #cart-btn{
   width: 200px;
-  position: absolute;
-  bottom: 300px;
-  right: 490px;
+  position: relative;
+  top: 10px;
+  left: 10px;
 }
 
 #title{
