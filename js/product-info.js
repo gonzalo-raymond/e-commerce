@@ -1,15 +1,18 @@
-//Variables que guardan las url de los distintos productos
+//Variables que guardan las url de los distintos productos y sus comentarios
 //segun el id de cada producto que es obtenido desde localstorage. 
 let prodID = localStorage.getItem("prodID"),
     prodUrl = `${PRODUCT_INFO_URL}${prodID}${EXT_TYPE}`,
     commentsUrl = `${PRODUCT_INFO_COMMENTS_URL}${prodID}${EXT_TYPE}`,
 
+// Variables Globales necesarias para mostrar la información de los productos
+// y sus comentarios.
     commentsInfo = [],
     commentsCount = 0,
     totalScoreCount = 0,
     commentStatus = false,
-    productCoverImg = ""; 
+    productCoverImg = "";
 
+// Elementos del DOM necesarios.
 const productTitle = document.querySelector("#title"),
       productprice = document.querySelector("#price"),
       productdescription = document.querySelector("#description"),
@@ -36,13 +39,17 @@ const productTitle = document.querySelector("#title"),
       commentTextArea = document.querySelector("#commentTextArea"),
       sendCommentBtn = document.querySelector("#sendBtn"),
 
+// Variable que guarda un criterio de orden.
       ORDER_BY_COMMENT_DATE = "dateOrd";
 
+// Función que almacena en localstorage el id de un producto y
+// redirecciona la pagina para mostrar su información.
 function setProdID(id) {
   localStorage.setItem("prodID", id);
   window.location = "product-info.html"
 };
 
+// Función que muestra en pantalla la informacón de un producto.
 const showProductInfo = () => {
 
   let {name: name, currency: currency, cost: cost, description: description, category: category, images: images, relatedProducts: relatedProducts, soldCount: unitsSold} = productInfo;
@@ -102,16 +109,17 @@ const showProductInfo = () => {
 
   relatedProductsContainer.innerHTML = relatedProductsContent;
 
-    
-
 },
 
+// Función que se activa al hacer click sobre una miniatura de un producto
+// y la muestra como imagen principal.
 doBigger = (smallImg) =>{
   let bigImg = document.querySelector("#bigImg");
   bigImg.src = smallImg.src;
   productCoverImg = smallImg.src;
 },
 
+// Función que ordena comentarios segun criterio (actualmente solo por fecha).
 sortComments = (criteria, array) =>{
   
   let result = [];
@@ -131,6 +139,7 @@ sortComments = (criteria, array) =>{
   return result
 },
 
+// Función que agrega un comentario al array de comentarios existente.
 addComment = (array) => {
 
   let userName = "",
@@ -176,6 +185,7 @@ addComment = (array) => {
   return newCommentsInfo
 },
 
+// Función que muestra los comentarios en pantalla.
 showProductComments = () =>{
 
   let blockQuote = "";
@@ -246,6 +256,8 @@ showProductComments = () =>{
   
 },
 
+// Función que realiza un promedio de puntajes en base a los puntajes en los comentarios
+// de el producto y se lo asigna al puntaje general del producto.
 avgProductScore = () =>{
 
   let avgScore = totalScoreCount / commentsCount,
@@ -313,6 +325,9 @@ avgProductScore = () =>{
 
 };
 
+//Evento de tipo click que actua sobre el boton de enviar comentario y
+//si los inputs son validos llama a la funcion que agrega un comentario,
+//además de guardar el array de comentarios en localstorage.  
 sendCommentBtn.addEventListener("click", () => {
 
   commentStatus = true;
@@ -359,19 +374,23 @@ sendCommentBtn.addEventListener("click", () => {
  
 }),
 
+// Elementos del DOM necesarios para mostrar el modal de full picture.
 modal = document.querySelector("#myModal"),
 modalImg = document.querySelector("#img01"),
 
+//Función que al hacer click en la imagen principal del producto
+//desplega un modal que la muestra en pantalla completa.  
 fullPicture = () => {
   modal.style.display = "block";
   modalImg.src = productCoverImg;
-  console.log(modalImg.src)
 },
 
+//Función que al hacer click en la cruz del modal desplegado lo oculta. 
 pictureClose = () =>{
   modal.style.display = "none";
 };
 
+//Evento de escucha de tipo carga que actua sobre la raiz del DOM.
 document.addEventListener("DOMContentLoaded", async () => {
 
   //Condicional que evalua si el usuario no esta logeado y
@@ -395,7 +414,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let comments = JSON.parse(localStorage.getItem(`comments${prodID}`));
 
-  //Codigo que hace fetch a la url dinamica de un producto.
+  //Codigo que hace fetch a la url dinamica de un producto y segun condicionales
+  //ejecuta diferentes funciónes.
   const commentsObj = await getJSONData(commentsUrl)
   if (commentsObj.status === "ok" && comments === null){
     commentsInfo = commentsObj;
