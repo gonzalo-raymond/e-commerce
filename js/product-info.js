@@ -169,6 +169,7 @@ addComment = (array) => {
     userImgUrl = userDataG.profileImg;
   }else if(userEmailInfo != null){
     userName = userEmailInfo;
+    userImgUrl = "img/img_perfil.png"
   }
 
   let newComment = {
