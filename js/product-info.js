@@ -140,9 +140,9 @@ imgNext = () => {
 
   if(modal.style.display === "block"){
     modalImg.src = productCoverImg;
-  }else{
-    bigImg.src = productCoverImg;
   }
+
+  bigImg.src = productCoverImg;
 
 },
 
@@ -162,9 +162,9 @@ imgPrev = () => {
 
   if(modal.style.display === "block"){
     modalImg.src = productCoverImg;
-  }else{
-    bigImg.src = productCoverImg;
   }
+  
+  bigImg.src = productCoverImg;
 
 },
 
