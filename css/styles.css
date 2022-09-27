@@ -241,11 +241,15 @@ input:focus::placeholder{
 }
 
 .dropdown-menu, .dropdown-menu-dark{
-  width: 220px;
+  width: 250px;
 }
 
 .dropdown-menu.dropdown-menu-dark.show{
   margin-top: 4px;
+  margin-left: -38px;
+  text-align: center;
+  font-size: 16px;
+  text-transform: capitalize;
 }
 
 .navbar-brand{
