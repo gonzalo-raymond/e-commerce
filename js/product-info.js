@@ -143,7 +143,7 @@ imgNext = () => {
   }else{
     bigImg.src = productCoverImg;
   }
-  console.log(modal.style.display === "block")
+
 },
 
 imgPrev = () => {
