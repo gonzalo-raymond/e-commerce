@@ -2,7 +2,7 @@
 //segun el id de cada producto que es obtenido desde localstorage. 
 let prodID = localStorage.getItem("prodID"),
     prodUrl = `${PRODUCT_INFO_URL}${prodID}${EXT_TYPE}`,
-    commentsUrl = `${PRODUCT_INFO_COMMENTS_URL}${prodID}${EXT_TYPE}`,
+    commentsUrl = `${PRODUCT_INFO_COMMENTS_URL}${prodID}${EXT_TYPE}`, 
 
 // Variables Globales necesarias para mostrar la información de los productos
 // y sus comentarios.
@@ -10,7 +10,8 @@ let prodID = localStorage.getItem("prodID"),
     commentsCount = 0,
     totalScoreCount = 0,
     commentStatus = false,
-    productCoverImg = "";
+    productCoverImg = "",
+    imgIndex = 0;
 
 // Elementos del DOM necesarios.
 const productTitle = document.querySelector("#title"),
@@ -49,6 +50,8 @@ function setProdID(id) {
   window.location = "product-info.html"
 };
 
+
+
 // Función que muestra en pantalla la informacón de un producto.
 const showProductInfo = () => {
 
@@ -66,11 +69,21 @@ const showProductInfo = () => {
 
   productCoverImg = images[0];
 
+  
+
   productCoverImgContainer.innerHTML = `
     <a data-fslightbox="mygalley" data-type="image" href="#"> 
       <img width="625" src="${productCoverImg}" onclick="fullPicture()" id="bigImg">
     </a>
-  `;    
+    <button class="carousel-control-prev" type="button" onclick="imgPrev()" id="prev-img">
+      <i class="fas fa-chevron-left" id="prev-icon"></i>
+    </button>
+    <button class="carousel-control-next" type="button" onclick="imgNext()" id="next-img">
+      <i class="fas fa-chevron-right" id="next-icon"></i>
+    </button>
+  `;
+  
+  
 
   let productImages = "";
 
@@ -111,12 +124,60 @@ const showProductInfo = () => {
 
 },
 
+imgNext = () => {
+  let {images: images} = productInfo,
+      bigImg = document.querySelector("#bigImg");
+
+  imgIndex = images.indexOf(productCoverImg);
+
+  if(imgIndex > -1 && imgIndex < images.length - 1){
+    imgIndex++
+    productCoverImg = images[imgIndex];
+  }else{
+    imgIndex = 0;
+    productCoverImg = images[imgIndex];
+  }
+
+  if(modal.style.display === "block"){
+    modalImg.src = productCoverImg;
+  }else{
+    bigImg.src = productCoverImg;
+  }
+  console.log(modal.style.display === "block")
+},
+
+imgPrev = () => {
+  let {images: images} = productInfo,
+      bigImg = document.querySelector("#bigImg");
+
+  imgIndex = images.indexOf(productCoverImg);
+
+  if(imgIndex >= 1){
+    imgIndex = imgIndex -1;
+    productCoverImg = images[imgIndex];
+  }else{
+    imgIndex = images.length - 1;
+    productCoverImg = images[imgIndex];
+  }
+
+  if(modal.style.display === "block"){
+    modalImg.src = productCoverImg;
+  }else{
+    bigImg.src = productCoverImg;
+  }
+
+},
+
 // Función que se activa al hacer click sobre una miniatura de un producto
 // y la muestra como imagen principal.
 doBigger = (smallImg) =>{
-  let bigImg = document.querySelector("#bigImg");
-  bigImg.src = smallImg.src;
-  productCoverImg = smallImg.src;
+  let bigImg = document.querySelector("#bigImg"),
+      {images: images} = productInfo,
+      origin = `${window.location.origin}/`;
+  bigImg.src = smallImg.src.slice(origin.length);
+  productCoverImg = smallImg.src.slice(origin.length);
+  imgIndex = images.indexOf(productCoverImg);
+  
 },
 
 // Función que ordena comentarios segun criterio (actualmente solo por fecha).

@@ -14,7 +14,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
-    <div class="container">
+    <div class="container nav-container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -60,6 +60,14 @@
         </div>
       </div>
     </div>
+    <a href="cart.html">
+      <button type="button" class="btn btn-primary position-relative visually-hidden-mod" id="cart-btn">
+        <i class="fas fa-shopping-cart" id="cart-icon"></i>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger visually-hidden" id="cart-count">
+        0
+        </span>
+      </button>
+    </a>
   </nav>
   <!-- ============== SECTION CONTENT ============== -->
   <section class="padding-y mt-lg-5">
@@ -108,7 +116,7 @@
 
             <hr>
 
-            <div class="col-md-4 col-6 mb-3" id="cart-btn">
+            <div class="col-md-4 col-6 mb-3" id="add-cart-btn">
               <div class="row flex-nowrap">
                 <a href="#" class="btn  btn-primary"> <i class="me-1 fa fa-shopping-basket"></i> Agregar al carrito </a>
               </div>
@@ -275,6 +283,12 @@
   <div id="myModal" class="modal">
     <span class="close" onclick="pictureClose()">&times;</span>
     <img class="modal-content" id="img01">
+    <button class="carousel-control-prev" type="button" onclick="imgPrev()" id="modal-prev-img">
+      <i class="fas fa-chevron-left" id="modal-prev-icon"></i>
+    </button>
+    <button class="carousel-control-next" type="button" onclick="imgNext()" id="modal-next-img">
+      <i class="fas fa-chevron-right" id="modal-next-icon"></i>
+    </button>
   </div>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
