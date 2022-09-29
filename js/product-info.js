@@ -50,8 +50,6 @@ function setProdID(id) {
   window.location = "product-info.html"
 };
 
-
-
 // Función que muestra en pantalla la informacón de un producto.
 const showProductInfo = () => {
 
@@ -69,8 +67,6 @@ const showProductInfo = () => {
 
   productCoverImg = images[0];
 
-  
-
   productCoverImgContainer.innerHTML = `
     <a data-fslightbox="mygalley" data-type="image" href="#"> 
       <img width="625" src="${productCoverImg}" onclick="fullPicture()" id="bigImg">
@@ -83,8 +79,6 @@ const showProductInfo = () => {
     </button>
   `;
   
-  
-
   let productImages = "";
 
   for(let i=0; i < images.length; i++){
@@ -124,6 +118,7 @@ const showProductInfo = () => {
 
 },
 
+//Función que cambia a la siguiente imagen en el array de imagenes de un producto.
 imgNext = () => {
   let {images: images} = productInfo,
       bigImg = document.querySelector("#bigImg");
@@ -146,6 +141,7 @@ imgNext = () => {
 
 },
 
+//Función que cambia a la anterior imagen en el array de imagenes de un producto.
 imgPrev = () => {
   let {images: images} = productInfo,
       bigImg = document.querySelector("#bigImg");
@@ -334,10 +330,7 @@ avgProductScore = () =>{
 
       oneDigitAvgScore = avgScore.toFixed(0);
 
-  if(twoDigitsAvgScore === 0.5){
-    starPercentageRounded = "10%";
-
-  }else if(twoDigitsAvgScore >= 0.6 && twoDigitsAvgScore <= 1.4){
+  if(twoDigitsAvgScore >= 0.6 && twoDigitsAvgScore <= 1.4){
     starPercentageRounded = "20%";
     avgScore = oneDigitAvgScore;
 

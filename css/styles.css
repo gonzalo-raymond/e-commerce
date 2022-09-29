@@ -685,3 +685,12 @@ a #cart-btn.visually-hidden-mod{
 #modal-next-icon{
   font-size: 90px;
 }
+
+#sendBtn{
+  text-transform: capitalize;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 5px 30px;
+  margin-right: 5px;
+  margin-top: -5px;
+}
