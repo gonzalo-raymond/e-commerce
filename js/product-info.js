@@ -39,6 +39,7 @@ const productTitle = document.querySelector("#title"),
       userImg = document.querySelector("#commentProfileImg"),
       commentTextArea = document.querySelector("#commentTextArea"),
       sendCommentBtn = document.querySelector("#sendBtn"),
+      addToCartBtn = document.querySelector("#add-cart-btn"),
 
 // Variable que guarda un criterio de orden.
       ORDER_BY_COMMENT_DATE = "dateOrd";
@@ -115,6 +116,75 @@ const showProductInfo = () => {
   }
 
   relatedProductsContainer.innerHTML = relatedProductsContent;
+
+  addToCartBtn.addEventListener("click", () => {
+
+
+    let purchaseOrder = JSON.parse(localStorage.getItem(`purchaseOrder${user}`));
+
+    if(purchaseOrder === null){
+
+      let purchaseOrder = {
+        user: userId,
+        articles: [
+          {
+            id: prodID,
+            name: name,
+            count: 1,
+            unitCost: cost,
+            currency: currency,
+            image: productCoverImg
+          }
+        ]
+      }
+
+      window.localStorage.setItem(`purchaseOrder${user}`, JSON.stringify(purchaseOrder));
+      cartNotification();
+
+    }else{
+
+     let articles = purchaseOrder.articles;
+
+      const sameArticle = (article) => article.id == prodID;
+      if(articles.some(sameArticle)){
+
+        let index = articles.findIndex(sameArticle);
+
+        let article = articles[index]
+
+        let newCount = article.count + 1;
+
+        article.count = newCount;
+
+        window.localStorage.setItem(`purchaseOrder${user}`, JSON.stringify(purchaseOrder));
+        cartNotification();
+
+      }else{
+
+        let newArticle = {
+          id: prodID,
+          name: name,
+          count: 1,
+          unitCost: cost,
+          currency: currency,
+          image: productCoverImg
+        }
+
+
+
+        articles.push(newArticle);
+
+        window.localStorage.setItem(`purchaseOrder${user}`, JSON.stringify(purchaseOrder));
+        cartNotification();
+        
+
+      }
+
+      
+      
+    }
+
+  })
 
 },
 
@@ -364,7 +434,7 @@ avgProductScore = () =>{
 
   }
 
-  if(commentsCount === 0 || avgScore <= 0.4){
+  if(commentsCount === 0){
 
     starPercentageRounded = "0%";
     avgScore = 0;

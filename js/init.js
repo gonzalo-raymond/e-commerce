@@ -8,6 +8,17 @@ const PRODUCT_INFO_COMMENTS_URL = `https://japceibal.github.io/emercado-api/prod
 const CART_INFO_URL = `https://japceibal.github.io/emercado-api/user_cart/`;
 const CART_BUY_URL = `https://japceibal.github.io/emercado-api/cart/buy.json`;
 
+let cartInfo = [];
+let cartArticles = [];
+
+let user = "";
+
+let cartCount = 0;
+
+let userId = 25801;
+
+let cartURL = `${CART_INFO_URL}${userId}${EXT_TYPE}`
+
 
 //Función que le asigna un valor booleano a el status del login.
 let loginStatus = (booleano)=>{
@@ -32,11 +43,18 @@ let showProfileMenu = ()=>{
   
   if(userDataG != null){
     userMenuTitle.innerText = userDataG.email;
+    user = userDataG.email;
     userProfileImg.src = userDataG.profileImg;
   }else if(userEmailInfo != null){
     userMenuTitle.innerText = userEmailInfo;
+    user = userEmailInfo;
   }
 }
+
+if(loginStatusInfo === "true"){
+  showProfileMenu();
+}
+
 
 //Función que elimina los datos del usuario almacenados en
 // el localstorage.
@@ -68,7 +86,7 @@ let logOutEvent = ()=>{
     logOut();
   })
 };
-
+ 
 //Función que redirecciona a la url que le pase por parametro.
 let replace = (url)=>{
   window.location.replace(url);
@@ -83,6 +101,45 @@ let showSpinner = function(){
 let hideSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "none";
 }
+
+const cartNotification = () => {
+
+  cartCount = 0;
+
+  let purchaseOrder = JSON.parse(localStorage.getItem(`purchaseOrder${user}`));
+
+  if(purchaseOrder != null && purchaseOrder.articles.length !== 0){
+
+    
+
+    let articles = purchaseOrder.articles;
+   
+    for(let i=0; i < articles.length; i++){
+
+      let article = articles[i];
+
+      cartCount += article.count;
+
+    }
+
+    document.getElementById("cart-count").innerText = cartCount;
+
+    document.getElementById("cart-btn").classList.remove("visually-hidden-mod");
+    document.getElementById("cart-count").classList.remove("visually-hidden");
+
+    
+
+  }else if(purchaseOrder === null || cartCount === 0 || purchaseOrder.articles.length === 0){
+
+    document.getElementById("cart-btn").classList.add("visually-hidden-mod");
+    document.getElementById("cart-count").classList.add("visually-hidden");
+    localStorage.removeItem(`purchaseOrder${user}`);
+
+  }
+
+};
+
+
 
 
 //Función async await que realiza un fetch y devuelve objeto json()
@@ -109,3 +166,23 @@ const  getJSONData = async (url) => {
   }
   return result;
 }
+
+
+document.addEventListener("DOMContentLoaded", async () =>{
+
+  cartNotification();
+  let purchaseOrder = JSON.parse(localStorage.getItem(`purchaseOrder${user}`));
+
+  const cartObj = await getJSONData(cartURL);
+  if (cartObj.status === "ok" && purchaseOrder === null){
+
+    cartInfo = (({user, articles}) => ({user, articles}))(cartObj);
+    cartArticles = cartInfo.articles;
+    localStorage.setItem(`purchaseOrder${user}`, JSON.stringify(cartInfo))
+    cartNotification();        
+  }else{
+    cartInfo = purchaseOrder;
+    cartArticles = cartInfo.articles
+    cartNotification();
+  }
+});
