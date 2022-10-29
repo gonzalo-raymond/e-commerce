@@ -646,6 +646,8 @@ const showCartArticles = () => {
 
     let prefix = "";
 
+    let first= "";
+
     if(cartArticles.length == 0){
         articlesContent =  `
             <div class="row mb-4 d-flex justify-content-center text-center">
@@ -684,8 +686,14 @@ const showCartArticles = () => {
             prefix = `$`;
         }
 
+        if(i===0){
+            first = "first";
+        }else{
+            first = "";
+        }
+
         articlesContent += `
-            <div class="row d-flex justify-content-around align-items-center cart-content">
+            <div class="row d-flex justify-content-around align-items-center cart-content ${first}">
                 <div class="col-md-3 col-lg-3 col-xl-3 cart-item">
                     <img src="${image}" width="150" class="img-fluid rounded-3 no-max-width" alt="${name}">
                     <h6 class="text-muted text-correct article-name">${name}</h6>
