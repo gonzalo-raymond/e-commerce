@@ -696,7 +696,7 @@ const showCartArticles = () => {
             <div class="row d-flex justify-content-around align-items-center cart-content ${first}">
                 <div class="col-md-3 col-lg-3 col-xl-3 cart-item">
                     <img src="${image}" width="150" class="img-fluid rounded-3 no-max-width" alt="${name}">
-                    <h6 class="text-muted text-correct article-name">${name}</h6>
+                    <h6 class="text-correct article-name">${name}</h6>
                 </div>
 
                 <div class="col-md-2 col-lg-2 col-xl-2">
