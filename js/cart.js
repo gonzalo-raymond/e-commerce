@@ -649,7 +649,7 @@ const showCartArticles = () => {
     if(cartArticles.length == 0){
         articlesContent =  `
             <div class="row mb-4 d-flex justify-content-center text-center">
-                <h1>Su carrito esta vacio! &#128532;</h1>
+                <h1 id="empty-cart-text">Su carrito esta vacio! &#128532;</h1>
             </div>
         `
         const adressStreetInput = document.getElementById("calle");
