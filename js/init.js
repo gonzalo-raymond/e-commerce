@@ -68,6 +68,13 @@ let userDataClean = ()=>{
   }else if(userEmailInfo != null){
     window.localStorage.removeItem("userEmail");
   }
+
+  let purchaseOrder = JSON.parse(localStorage.getItem(`purchaseOrder${user}`));
+
+  if(purchaseOrder.articles.length === 0){
+    localStorage.removeItem(`purchaseOrder${user}`);
+  }
+
 }
 
 
@@ -133,7 +140,6 @@ const cartNotification = () => {
 
     document.getElementById("cart-btn").classList.add("visually-hidden-mod");
     document.getElementById("cart-count").classList.add("visually-hidden");
-    localStorage.removeItem(`purchaseOrder${user}`);
 
   }
 

@@ -4,20 +4,389 @@ const articlesContainer = document.getElementById("articles-container"),
       cartNotificationCount = document.getElementById("cart-count"),
       deliverOptions = document.getElementById("deliver-options"),
       deliverCostContainer = document.getElementById("cart-deliver-price"),
-      subtotalCostContainer = document.getElementById("cart-subtotal-price");
+      subtotalCostContainer = document.getElementById("cart-subtotal-price"),
+      moneyOptions = document.getElementById("money-options"),
+      buyBtn = document.getElementById("buyBtn"),
+      cancelBtn = document.getElementById("cancel-btn"),
+      cardOption = document.getElementById("card-option"),
+      bankOption = document.getElementById("bank-option"),
+      payBtn = document.getElementById("pay-btn");
 
 let totalCost = 0,
     subTotal = 0,
-    deliverCostPercentage = 0.05;
+    deliverCostPercentage = 0.05,
+    moneyOption = 1,
+    mixedMoney = false,
+    allDolar = false,
+    allPesos = false,
+    msg = "";
 
-    deliverOptions.addEventListener("change", (e) => {
+deliverOptions.addEventListener("change", (e) => {
         
-        deliverCostPercentage = parseFloat(e.target.value);
-        calcTotal()
+    deliverCostPercentage = parseFloat(e.target.value);
+    calcTotal()
         
-    })
+})
 
-    //onclick="${this.parentNode.querySelector('#qty-input${id}').stepUp()}"
+moneyOptions.addEventListener("change", (e) => {
+
+    moneyOptions.classList.remove("is-invalid");
+    moneyOption = parseInt(e.target.value);
+    calcTotal()
+
+});
+
+cardOption.addEventListener("click", () => {
+
+    cardOption.classList.remove("is-invalid");
+    bankOption.classList.remove("is-invalid");
+
+    const cardArea = document.getElementById("card-area");
+
+    const bankArea = document.getElementById("bank-area");
+
+    const cardHoldersNameInput = document.getElementById("typeName");
+
+    const cardNumberInput = document.getElementById("card-number");
+
+    const cardExpInput = document.getElementById("typeExp");
+
+    const cardCvvInput = document.getElementById("security-numbers");
+
+    const bankAccountInput = document.getElementById("bank-account");
+
+    bankAccountInput.value = "";
+
+    bankAccountInput.classList.remove("is-invalid");
+    bankAccountInput.classList.remove("is-valid");
+
+    cardArea.classList.remove("unselected");
+
+    bankArea.classList.add("unselected");
+
+    cardHoldersNameInput.disabled = false;
+
+    cardNumberInput.disabled = false;
+
+    cardExpInput.disabled = false;
+
+    cardCvvInput.disabled = false;
+
+    bankAccountInput.disabled = true;
+
+});
+
+bankOption.addEventListener("click", () => {
+
+    cardOption.classList.remove("is-invalid");
+    bankOption.classList.remove("is-invalid");
+
+    const bankArea = document.getElementById("bank-area");
+
+    const cardArea = document.getElementById("card-area");
+
+    const bankAccountInput = document.getElementById("bank-account");
+
+    const cardHoldersNameInput = document.getElementById("typeName");
+
+    const cardNumberInput = document.getElementById("card-number");
+
+    const cardExpInput = document.getElementById("typeExp");
+
+    const cardCvvInput = document.getElementById("security-numbers");
+
+    cardHoldersNameInput.value = "";
+    cardNumberInput.value = "";
+    cardExpInput.value = "";
+    cardCvvInput.value = "";
+
+    cardHoldersNameInput.classList.remove("is-invalid");
+    cardHoldersNameInput.classList.remove("is-valid");
+    cardNumberInput.classList.remove("is-invalid");
+    cardNumberInput.classList.remove("is-valid");
+    cardExpInput.classList.remove("is-invalid");
+    cardExpInput.classList.remove("is-valid");
+    cardCvvInput.classList.remove("is-invalid");
+    cardCvvInput.classList.remove("is-valid");
+
+    bankArea.classList.remove("unselected");
+
+    cardArea.classList.add("unselected");
+
+    bankAccountInput.disabled = false;
+
+    cardHoldersNameInput.disabled = true;
+
+    cardNumberInput.disabled = true;
+
+    cardExpInput.disabled = true;
+
+    cardCvvInput.disabled = true;
+
+});
+
+cancelBtn.addEventListener("click", () => {
+
+    const bankArea = document.getElementById("bank-area");
+    const cardArea = document.getElementById("card-area");
+
+    const adressStreetInput = document.getElementById("calle");
+    const adressNumberInput = document.getElementById("número");
+    const adressCornerInput = document.getElementById("esquina");
+
+    const bankAccountInput = document.getElementById("bank-account");
+    const cardHoldersNameInput = document.getElementById("typeName");
+    const cardNumberInput = document.getElementById("card-number");
+    const cardExpInput = document.getElementById("typeExp");
+    const cardCvvInput = document.getElementById("security-numbers");
+
+    bankAccountInput.value = "";
+    cardHoldersNameInput.value = "";
+    cardNumberInput.value = "";
+    cardExpInput.value = "";
+    cardCvvInput.value = "";
+
+    bankAccountInput.classList.remove("is-valid");
+    cardHoldersNameInput.classList.remove("is-valid");
+    cardNumberInput.classList.remove("is-valid");
+    cardExpInput.classList.remove("is-valid");
+    cardCvvInput.classList.remove("is-valid");
+
+    bankAccountInput.classList.remove("is-invalid");
+    cardHoldersNameInput.classList.remove("is-invalid");
+    cardNumberInput.classList.remove("is-invalid");
+    cardExpInput.classList.remove("is-invalid");
+    cardCvvInput.classList.remove("is-invalid");
+    
+    adressStreetInput.classList.remove("is-valid");  
+    adressNumberInput.classList.remove("is-valid");
+    adressCornerInput.classList.remove("is-valid");   
+    moneyOptions.classList.remove("is-valid");
+
+    bankAccountInput.disabled = true;
+    cardHoldersNameInput.disabled = true;
+    cardNumberInput.disabled = true;
+    cardExpInput.disabled = true;
+    cardCvvInput.disabled = true;
+
+    cardOption.checked = false;
+    bankOption.checked = false;
+    
+    cardArea.classList.add("unselected");
+    bankArea.classList.add("unselected");
+       
+    buyBtn.setAttribute("data-bs-toggle", "");
+
+});
+
+const showBuySuccess = () => {
+    document.getElementById("msg-container").innerText = msg;
+    document.getElementById("buy-success").classList.add("show");
+    setTimeout(()=>{
+        document.getElementById("buy-success").classList.remove("show");  
+    }, 2500);
+}
+
+const validatePay = () =>{
+
+    const cardHoldersNameInput = document.getElementById("typeName");
+
+    const cardNumberInput = document.getElementById("card-number");
+
+    const cardExpInput = document.getElementById("typeExp");
+
+    const cardCvvInput = document.getElementById("security-numbers");
+
+    const bankAccountInput = document.getElementById("bank-account");
+
+    let cardHoldersName = cardHoldersNameInput.value;
+
+    let cardNumber = cardNumberInput.value;
+
+    let cardExp = cardExpInput.value;
+
+    let cardCvv = cardCvvInput.value;
+
+    let bankAccount = bankAccountInput.value;
+
+    if(cardOption.checked){
+
+        if(cardHoldersName != "" &&
+           cardNumber != "" &&
+           cardExp != "" &&
+           cardCvv != ""){
+
+            cardHoldersNameInput.classList.remove("is-invalid");
+            cardHoldersNameInput.classList.add("is-valid");
+            cardNumberInput.classList.remove("is-invalid");
+            cardNumberInput.classList.add("is-valid");
+            cardExpInput.classList.remove("is-invalid");
+            cardExpInput.classList.add("is-valid");
+            cardCvvInput.classList.remove("is-invalid");
+            cardCvvInput.classList.add("is-valid");
+
+            cancelBtn.click();
+            showBuySuccess();
+
+        }else{
+
+            if(!cardHoldersName){
+                cardHoldersNameInput.classList.remove("is-valid");
+                cardHoldersNameInput.classList.add("is-invalid");
+            }else{
+                cardHoldersNameInput.classList.remove("is-invalid");
+                cardHoldersNameInput.classList.add("is-valid");
+            }
+
+            if(!cardNumber){
+                cardNumberInput.classList.remove("is-valid");
+                cardNumberInput.classList.add("is-invalid");
+            }else{
+                cardNumberInput.classList.remove("is-invalid");
+                cardNumberInput.classList.add("is-valid");
+            }
+
+            if(!cardExp){
+                cardExpInput.classList.remove("is-valid");
+                cardExpInput.classList.add("is-invalid");
+            }else{
+                cardExpInput.classList.remove("is-invalid");
+                cardExpInput.classList.add("is-valid");
+            }
+
+            if(!cardCvv){
+                cardCvvInput.classList.remove("is-valid");
+                cardCvvInput.classList.add("is-invalid");
+            }else{
+                cardCvvInput.classList.remove("is-invalid");
+                cardCvvInput.classList.add("is-valid");
+            }
+
+        }
+
+
+    }else if(bankOption.checked){
+
+        if(bankAccount != ""){
+            bankAccountInput.classList.remove("is-invalid");
+            bankAccountInput.classList.add("is-valid");
+            cancelBtn.click();
+            showBuySuccess();
+        }else{
+            bankAccountInput.classList.remove("is-valid");
+            bankAccountInput.classList.add("is-invalid");
+        }
+
+    }else{
+        cardOption.classList.add("is-invalid");
+        bankOption.classList.add("is-invalid");
+    }
+
+};
+
+payBtn.addEventListener("click", validatePay);
+
+
+const validateBuy = () =>{
+
+    const moneyOptions = document.getElementById("money-options");
+
+    const defaultOption = document.getElementById("default");
+
+    let defaultSelected = defaultOption.selected;
+
+    const adressStreetInput = document.getElementById("calle");
+
+    const adressNumberInput = document.getElementById("número");
+
+    const adressCornerInput = document.getElementById("esquina");
+
+    const adressStreet = adressStreetInput.value.trim();
+
+    const adressNumber = adressNumberInput.value.trim();
+
+    const adressCorner = adressCornerInput.value.trim();
+
+    const subtotal = document.getElementById("cart-subtotal-price").innerText;
+
+    const deliverCost = document.getElementById("cart-deliver-price").innerText;
+
+    const total = document.getElementById("cart-total-price").innerText;
+
+    const modalSubtotal = document.getElementById("modal-subtotal");
+
+    const modalDeliver = document.getElementById("modal-deliver");
+
+    const modalTotal = document.getElementById("modal-total");
+
+    const profileImg = document.getElementById("profile__img").src;
+
+    const modalProfile = document.getElementById("modal-profile");
+
+    let qty = parseInt(cartQty.innerText);  
+
+    if(adressStreet !== "" &&
+       adressNumber !== "" &&
+       adressNumber != 0 &&
+       adressCorner !== "" && 
+       !defaultSelected &&
+       qty !== 0){
+
+        adressStreetInput.classList.remove("is-invalid");
+        adressStreetInput.classList.add("is-valid");
+        adressNumberInput.classList.remove("is-invalid");
+        adressNumberInput.classList.add("is-valid");
+        adressCornerInput.classList.remove("is-invalid");
+        adressCornerInput.classList.add("is-valid");
+        moneyOptions.classList.remove("is-invalid");
+        moneyOptions.classList.add("is-valid");
+
+        buyBtn.setAttribute("data-bs-toggle", "modal");
+        modalProfile.src = profileImg;
+        modalSubtotal.innerText = subtotal;
+        modalDeliver.innerText = deliverCost;
+        modalTotal.innerText = total;
+        buyBtn.click();
+  
+    }else if(qty !== 0){
+
+        if(!adressStreet){
+            adressStreetInput.classList.remove("is-valid");
+            adressStreetInput.classList.add("is-invalid");
+        }else{
+            adressStreetInput.classList.remove("is-invalid");
+            adressStreetInput.classList.add("is-valid"); 
+        }
+
+        if(!adressNumber){
+            adressNumberInput.classList.remove("is-valid");
+            adressNumberInput.classList.add("is-invalid");
+        }else{
+            adressNumberInput.classList.remove("is-invalid");
+            adressNumberInput.classList.add("is-valid"); 
+        }
+
+        if(!adressCorner){
+            adressCornerInput.classList.remove("is-valid");
+            adressCornerInput.classList.add("is-invalid");
+        }else{
+            adressCornerInput.classList.remove("is-invalid");
+            adressCornerInput.classList.add("is-valid");
+        }
+
+        if(defaultSelected){
+            moneyOptions.classList.remove("is-valid");
+            moneyOptions.classList.add("is-invalid");
+        }else{
+            moneyOptions.classList.remove("is-invalid");
+            moneyOptions.classList.add("is-valid");
+        }
+
+    }
+
+};
+
+buyBtn.addEventListener("click", validateBuy);
 
 const deleteArticle = (id) =>{
 
@@ -32,10 +401,6 @@ const deleteArticle = (id) =>{
     articles.splice(articleIndex, 1);
 
     localStorage.setItem(`purchaseOrder${user}`, JSON.stringify(purchaseOrder));
-
-    if(purchaseOrder.articles.length === 0){
-        localStorage.removeItem(`purchaseOrder${user}`);
-    }
 
 };
 
@@ -65,13 +430,11 @@ const updateArticleCount = (id, newCount) => {
 
 const calcTotal = () => {
 
-    prefix = ""
+    const defaultOption = document.getElementById("default");
+
+    let defaultSelected = defaultOption.selected;
 
     let totalQty = 0;
-
-    let totalCost = 0;
-
-    let subTotals = document.querySelectorAll(`.subtotal`);
 
     let qtyInputs = document.getElementsByClassName("qty-input");
 
@@ -85,45 +448,110 @@ const calcTotal = () => {
         }else{
             qtyInput.value = 1;
         }
-        
+
         if(qty != NaN){
             totalQty += qty;
         }
-        
+
     }
+        
     
-    for(let i=0; i < subTotals.length; i++){
 
-        let subtotal = subTotals[i];
+    if(defaultSelected){
 
-        prefix = subtotal.innerText.split(subtotal.childNodes[1].innerText)[0];
+        subtotalCostContainer.innerText = `--`;
 
-        let subtotalValue = parseInt(subtotal.childNodes[1].innerText);
+        deliverCostContainer.innerText = `--`;
 
-        totalCost += subtotalValue;
-        
+        cartTotalPrice.innerText = `--`;
+
+    }else{
+
+        prefix = ""
+
+        let dolarCount = 0;
+
+        let dolarMont = 0;
+
+        let pesosMont = 0;
+
+        let pesosCount = 0;
+
+        let totalCost = 0;
+
+        let subTotals = document.querySelectorAll(`.subtotal`);
+  
+        for(let i=0; i < subTotals.length; i++){
+
+            let subtotal = subTotals[i];
+
+            prefix = subtotal.innerText.split(subtotal.childNodes[1].innerText)[0];
+
+            let subtotalValue = parseInt(subtotal.childNodes[1].innerText);
+           
+            if(prefix === "USD "){
+                dolarCount += 1
+                dolarMont += subtotalValue;
+            }else if(prefix === "$ "){
+                pesosCount += 1
+                pesosMont += subtotalValue;
+            }
+
+        }
+
+        if(dolarCount === subTotals.length){
+            allDolar = true;
+            totalCost = dolarMont;
+        }else if(pesosCount === subTotals.length){
+            allPesos = true;
+            totalCost = pesosMont;
+        }else if(dolarCount + pesosCount === subTotals.length){
+            mixedMoney = true;
+        }
+
+        if(allDolar && moneyOption === 1){
+            prefix = "USD ";
+            totalCost = totalCost * moneyOption;  
+        }else if(allDolar && moneyOption === 40){
+            prefix = "$ ";
+            totalCost = totalCost * moneyOption;
+        }else if(allPesos && moneyOption === 40){
+            prefix = "$ ";
+            totalCost = totalCost * 1;
+        }else if(allPesos && moneyOption === 1){
+            prefix = "USD ";
+            totalCost = Math.round(totalCost / 40);
+        }else if(mixedMoney){
+
+            if(moneyOption === 1){
+                prefix = "USD ";
+                let dolarConverted = Math.round(pesosMont / 40);
+                totalCost = dolarMont + dolarConverted;
+            }else if(moneyOption === 40){
+                prefix = "$ ";
+                let pesosConverted = dolarMont * 40;
+                totalCost = pesosMont + pesosConverted;
+            }
+        }
+    
+        let deliverCost = Math.round((totalCost * deliverCostPercentage));
+
+        totalCost = totalCost + deliverCost;
+
+        let subtotalCost = totalCost - deliverCost;
+
+        subtotalCostContainer.innerText = `${prefix} ${subtotalCost}`;
+
+        deliverCostContainer.innerText = `${prefix} ${deliverCost}`;
+
+        cartTotalPrice.innerText = `${prefix} ${totalCost}`;
+
     }
-
-    let deliverCost = Math.round((totalCost * deliverCostPercentage));
-
-    console.log(deliverCostPercentage);
-    console.log(deliverCost);
-
-    totalCost = totalCost + deliverCost;
-
-    let subtotalCost = totalCost - deliverCost;
-
-    subtotalCostContainer.innerText = `${prefix} ${subtotalCost}`;
-
-    deliverCostContainer.innerText = `${prefix} ${deliverCost}`;
-
-    cartTotalPrice.innerText = `${prefix} ${totalCost}`;
 
     if(!isNaN(totalQty)){
         cartQty.innerText = `${totalQty}`;
         cartNotificationCount.innerText = `${totalQty}`;
     }
-
 }
 
 const calcSubtotal = (price, id) =>{
@@ -206,13 +634,41 @@ const changeSubtotalMinus = (id, price) =>{
 
 const showCartArticles = () => {
 
+    let dolarsCount = 0;
+
+    let uyPesosCount = 0;
+
+    let allDolars = false;
+
+    let allUyPesos = false;
+
     let articlesContent = "";
 
     let prefix = "";
 
-    for(let i=0; i < cartArticles.length; i++){
+    if(cartArticles.length == 0){
+        articlesContent =  `
+            <div class="row mb-4 d-flex justify-content-center text-center">
+                <h1>Su carrito esta vacio! &#128532;</h1>
+            </div>
+        `
+        const adressStreetInput = document.getElementById("calle");
+        const adressNumberInput = document.getElementById("número");
+        const adressCornerInput = document.getElementById("esquina");
+        const moneyOptions = document.getElementById("money-options");
 
-        
+        document.getElementById("deliver-options").disabled = true;
+        adressStreetInput.disabled = true;
+        adressNumberInput.disabled = true;
+        adressCornerInput.disabled = true;
+        moneyOptions.classList.remove("is-invalid");
+        moneyOptions.disabled = true;
+        document.getElementById("codigo-descuento").disabled = true;
+        buyBtn.disabled = true;
+
+    }
+
+    for(let i=0; i < cartArticles.length; i++){
 
         let article = cartArticles[i];
 
@@ -221,19 +677,12 @@ const showCartArticles = () => {
         let costPerArticle = parseInt(unitCost) * parseInt(count);
 
         if(currency === "USD" && currency != "UYU"){
-            //totalCost += costPerArticle
-            prefix = `USD`
+            dolarsCount += 1;
+            prefix = `USD`;
         }else if(currency === "UYU" && currency != "USD"){
-            //totalCost += costPerArticle
-            prefix = `$`
-        }else{
-            prefix = ""
-            totalCost = "mix de monedas";
+            uyPesosCount += 1;
+            prefix = `$`;
         }
-
-        
-
-        
 
         articlesContent += `
             <div class="row d-flex justify-content-around align-items-center cart-content">
@@ -260,9 +709,6 @@ const showCartArticles = () => {
                     <h6 class="mb-0 subtotal">${prefix} <span id="subtotal${id}">${costPerArticle}</span></h6>
                     <a href="cart.html" class="text-muted delete-article" onclick="deleteArticle(${id})"><i class="fas fa-times"></i></a>
                 </div>
-
-               
-
                 
             </div>
 
@@ -270,6 +716,31 @@ const showCartArticles = () => {
       
         `
 
+    }
+
+    if(dolarsCount === cartArticles.length && dolarsCount !== 0){
+        allDolars = true;
+    }else{
+        allDolars = false;
+    }
+
+    if(uyPesosCount === cartArticles.length && uyPesosCount !== 0){
+        allUyPesos = true;
+    }else{
+        allUyPesos = false;
+    }
+
+    if(allDolars){
+        
+        document.getElementById("dolar").selected = true;
+        moneyOptions.classList.remove("is-invalid");
+        moneyOption = parseInt(document.getElementById("dolar").value)
+
+    }else if(allUyPesos){
+        
+        document.getElementById("peso").selected = true;
+        moneyOptions.classList.remove("is-invalid");
+        moneyOption = parseInt(document.getElementById("peso").value)
     }
 
     articlesContainer.innerHTML = articlesContent;
@@ -295,8 +766,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         logOutEvent();
     }
 
+    const buyMsjObj = await getJSONData(CART_BUY_URL)
+    if (buyMsjObj.status === "ok"){
+        msg = buyMsjObj.msg;
+    }
+
     let purchaseOrder = JSON.parse(localStorage.getItem(`purchaseOrder${user}`));
-    
+
     const cartObj = await getJSONData(cartURL);
     if(cartObj.status === "ok" && purchaseOrder === null){
         cartInfo = (({user, articles}) => ({user, articles}))(cartObj);

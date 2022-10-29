@@ -489,7 +489,7 @@ span.fas.fa-star.checked{
 }
 
 /* The Modal (background) */
-.modal {
+.carrousel-modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -738,7 +738,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .cart-item{
-  margin-top: 30px;
+  margin-top: 10px;
   margin-left: -40px;
   text-align: center;
   margin-right: -5px;
@@ -811,4 +811,72 @@ input#número.form-control.form-control-lg{
   font-family: monospace;
   font-size: 12px;
   font-weight: bold;
+}
+
+#card-option, #bank-option{
+  accent-color: #198754;
+}
+
+.extra-width{
+  width: 395px;
+  margin-left: -31px;
+  opacity: 1;
+}
+
+#número.form-control.form-control-lg{
+  padding-right: 20px !important;
+}
+
+.unselected{
+  opacity: 0.3;
+}
+
+.modal-content div.invalid-feedback p{
+  color: yellow;
+}
+
+.pay-metod-title{
+  white-space: pre;
+}
+
+#buy-success.alert{
+  position: fixed;
+  top: 80px;
+  width: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.resume-section{
+  background-color: #eae8e8;
+  border-radius: 0 15px 15px 0;
+}
+
+.card-shadow{
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.main-content{
+  background-color: dodgerblue;
+  border-radius: 15px 0 0;
+}
+
+#articles-container{
+  width: 750px;
+  height: 800px;
+  background-color: white;
+  margin-bottom: -30px;
+  border-radius: 15px 15px 0px 0px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.cart-content{
+  width: 735px;
+  margin-top: -20px;
+  margin-bottom: -30px;
+}
+
+.free-space{
+  background-color: #2a52ba;
+  border-radius: 15px 0 0 15px;
 }

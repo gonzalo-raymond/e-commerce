@@ -74,11 +74,11 @@
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12">
-              <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+              <div class="card card-registration card-registration-2 card-shadow" style="border-radius: 15px;">
                 <div class="card-body p-0">
                   <div class="row g-0">
-                    <div class="col-lg-8">
-                      <div class="p-5">
+                    <div class="col-lg-8 free-space">
+                      <div class="p-5 main-content">
                         <div class="d-flex align-items-center justify-content-center mb-5 flex-column">
                           <h1 class="fw-bold mb-0 text-black">Tu carrito</h1>
                         </div>
@@ -98,8 +98,8 @@
 
                         <div id="articles-container">
       
-                          <div class="row mb-4 d-flex justify-content-between align-items-center">
-
+                          <div class="row mb-4 d-flex justify-content-center align-items-center">
+                            <h1>Su carrito esta vacio! :c</h1>
                           </div>
 
                         </div>
@@ -111,8 +111,8 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-4 bg-grey mt-5">
-                      <div class="p-5">
+                    <div class="col-lg-4">
+                      <div class="p-5 resume-section">
                         <h3 class="fw-bold mb-5 mt-2 pt-1">Resumen de Compra</h3>
                         <hr class="my-4">
       
@@ -120,6 +120,8 @@
                           <h5 class="text-uppercase">Cantidad de Articulos</h5>
                           <h5 id="cart-qty"></h5>
                         </div>
+
+                        
 
                         <h5 class="text-uppercase mb-3">Tipo de envío</h5>
       
@@ -135,19 +137,28 @@
                           <div class="mb-2 d-flex dirección-envio">
                             <div class="form-outline">
                               <label class="form-label" for="calle">Calle</label>
-                              <input type="text" id="calle" class="form-control form-control-lg" />
+                              <input type="text" spellcheck="false" id="calle" class="form-control form-control-lg" />
+                              <div class="invalid-feedback">
+                                <p>Ingresa una Calle</p>
+                              </div>
                             </div>
 
                             <div class="form-outline">
                               <label class="form-label" for="número">Número</label>
-                              <input type="text" id="número" class="form-control form-control-lg" />
+                              <input type="text" spellcheck="false" id="número" class="form-control form-control-lg" />
+                              <div class="invalid-feedback">
+                                <p>Ingresa un Número</p>
+                              </div>
                             </div>
                           </div>
 
                           <div class="mb-0">
                             <div class="form-outline">
                               <label class="form-label" for="esquina">Esquina</label>
-                              <input type="text" id="esquina" class="form-control form-control-lg" />
+                              <input type="text" spellcheck="false" id="esquina" class="form-control form-control-lg" />
+                              <div class="invalid-feedback">
+                                <p>Ingresa una Esquina</p>
+                              </div>
                             </div>
                           </div>
 
@@ -156,6 +167,21 @@
 
                         <hr class="my-4">
       
+                        
+
+                        <h5 class="text-uppercase mb-3">Moneda de pago</h5>
+
+                        <select class="select mb-3 p-1 is-invalid" id="money-options">
+                          <option class="text-muted" value="" id="default" selected disabled>Seleccione una moneda</option>
+                          <option value="1" id="dolar">Dolares - USD</option>
+                          <option value="40" id="peso">Pesos UY - $</option>
+                        </select>
+                        <div class="invalid-feedback">
+                          <p>Debe selecciónar una Moneda de Pago</p>
+                        </div>
+      
+                        <hr class="my-4">
+
                         <h5 class="text-uppercase mb-3">Codigo de Descuento</h5>
       
                         <div class="mb-0">
@@ -164,7 +190,7 @@
                             <label class="form-label" for="codigo-descuento">Ingresa tu codigo</label>
                           </div>
                         </div>
-      
+
                         <hr class="my-4">
 
                         <div class="d-flex justify-content-between mb-1">
@@ -185,7 +211,7 @@
                         </div>
       
                         <button type="button" class="btn btn-dark btn-block btn-lg"
-                          data-mdb-ripple-color="dark">Comprar</button>
+                          data-mdb-ripple-color="dark" data-bs-toggle="" data-bs-target="#staticBackdrop" id="buyBtn">Comprar</button>
       
                       </div>
                     </div>
@@ -196,6 +222,145 @@
           </div>
         </div>
       </section>
+
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content card bg-primary text-white rounded-3">
+            <div class="modal-header">
+              
+              <h5 class="modal-title" id="staticBackdropLabel"> Seleccione Metodo de Pago</h5>
+              <img src="img/img_perfil.png"
+              class="img-fluid rounded-3 mx-3" style="width: 45px;" alt="Avatar" id="modal-profile">
+            
+            </div>
+            
+            <div class="col-lg-12">
+
+              <div class="modal-body card bg-primary text-white ">
+                <div class="card-body">
+
+                  <div>
+                    <div class="d-flex justify-content-center align-items-baseline mb-3">
+                      <h5 class="mb-0 pay-metod-title">Tarjeta de Credito</h5>
+                      <input type="radio" class="ms-5 mb-0" name="pay-option" id="card-option">
+                      <div class="invalid-feedback">
+                        <p>Seleccione Metodo de Pago</p>
+                      </div>
+                    </div>
+          
+                    <div class="text-center">
+                      <p class="small mb-0 ">Operamos con</p>
+                      <a href="#!" type="submit" class="text-white"><i
+                      class="fab fa-cc-mastercard fa-2x me-2"></i></a>
+                      <a href="#!" type="submit" class="text-white"><i
+                      class="fab fa-cc-visa fa-2x me-2"></i></a>
+                      <a href="#!" type="submit" class="text-white"><i
+                      class="fab fa-cc-amex fa-2x me-2"></i></a>
+                    </div>
+
+                    <form class="mt-4 unselected" id="card-area">
+                      <div class="form-outline form-white mb-4">
+                        <label class="form-label" for="typeName">Nombre del Titular</label>
+                        <input type="text" spellcheck="false" id="typeName" class="form-control form-control-lg" siez="17"
+                        placeholder="Nombre Apellido" disabled/>
+                        <div class="invalid-feedback">
+                          <p>Ingresa Nombre y Apellido del Titular</p>
+                        </div>
+                      </div>
+          
+                      <div class="form-outline form-white mb-4">
+                        <label class="form-label" for="card-number">Número de tarjeta</label>
+                        <input type="text" spellcheck="false" id="card-number" class="form-control form-control-lg" siez="17"
+                        placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" disabled/>
+                        <div class="invalid-feedback">
+                          <p>Ingresa el número de tu tarjeta</p>
+                        </div>
+                      </div>
+          
+                      <div class="row mb-4">
+                        <div class="col-md-6">
+                          <div class="form-outline form-white">
+                            <label class="form-label" for="typeExp">Vencimiento</label>
+                            <input type="text" spellcheck="false" id="typeExp" class="form-control form-control-lg"
+                            placeholder="MM/AA" size="7" id="exp" minlength="7" maxlength="7" disabled/>
+                            <div class="invalid-feedback">
+                              <p>Ingresa fecha de vencimiento</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-outline form-white">
+                            <label class="form-label" for="security-numbers">CVV</label>
+                            <input type="password" spellcheck="false" id="security-numbers" class="form-control form-control-lg"
+                            placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" disabled/>
+                            <div class="invalid-feedback">
+                              <p>Ingresa los digitos de seguridad</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+          
+                    </form>
+                  </div>
+
+                  <hr class="my-4 extra-width">
+
+                  <div>
+                    <div class="d-flex justify-content-center align-items-baseline mb-4">
+                      <h5 class="mb-0 pay-metod-title">Transferencia Bancaria</h5>
+                      <input type="radio" class="ms-5 mb-0" name="pay-option" id="bank-option">
+                      <div class="invalid-feedback">
+                        <p>Seleccione Metodo de Pago</p>
+                      </div>
+                    </div>
+
+                    <div class="form-outline form-white mb-0 unselected" id="bank-area">
+                      <label class="form-label" for="bank-number">Número de Cuenta Bancaria</label>
+                      <input type="text" spellcheck="false" id="bank-account" class="form-control form-control-lg" siez="17"
+                      placeholder="ABC 1234 5678 9012 3457" minlength="9" maxlength="34" disabled/>
+                      <div class="invalid-feedback">
+                        <p>Ingresa una cuenta bancaria</p>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+        
+            </div>
+            
+            <div class="modal-footer d-flex flex-column align-items-stretch">
+
+              <div class="d-flex justify-content-between">
+                <p class="mb-2">Subtotal</p>
+                <p class="mb-2" id="modal-subtotal">--</p>
+              </div>
+  
+              <div class="d-flex justify-content-between">
+                <p class="mb-2">Envío</p>
+                <p class="mb-2" id="modal-deliver">--</p>
+              </div>
+  
+              <div class="d-flex justify-content-between mb-4">
+                <p class="mb-2">Total(IVA Incl.)</p>
+                <p class="mb-2" id="modal-total">--</p>
+              </div>
+  
+              <div class="d-flex justify-content-between">
+                <button type="button" class="btn  btn-dark" data-bs-dismiss="modal" id="cancel-btn">Cancelar Compra</button>
+                <button type="button" class="btn btn-primary btn-dark btn-block " id="pay-btn">
+                  <div class="d-flex justify-content-between">
+                    <span>Confirmar Compra <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                  </div>
+                </button>
+              </div>
+
+              
+            </div>
+          </div>
+        </div>
+      </div>   
     </div>
   </main>
   <footer class="text-muted">
@@ -208,6 +373,9 @@
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
   </footer>
+  <div class="alert alert-success alert-dismissible fade text-center" role="alert" id="buy-success">
+    <p id="msg-container"></p>
+  </div>
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>
