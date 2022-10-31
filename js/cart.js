@@ -1,3 +1,4 @@
+// Elementos del DOM necesarios.
 const articlesContainer = document.getElementById("articles-container"),
       cartQty = document.getElementById("cart-qty"),
       cartTotalPrice = document.getElementById("cart-total-price"),
@@ -12,6 +13,7 @@ const articlesContainer = document.getElementById("articles-container"),
       bankOption = document.getElementById("bank-option"),
       payBtn = document.getElementById("pay-btn");
 
+// Variables globales necesarias.
 let totalCost = 0,
     subTotal = 0,
     deliverCostPercentage = 0.05,
@@ -21,6 +23,8 @@ let totalCost = 0,
     allPesos = false,
     msg = "";
 
+// Evento de tipo change que actua al cambiar las opciones de envio y calcula
+// el costo de envio y el total de compra dependiendo la opcion de envio seleccionada. 
 deliverOptions.addEventListener("change", (e) => {
         
     deliverCostPercentage = parseFloat(e.target.value);
@@ -28,6 +32,10 @@ deliverOptions.addEventListener("change", (e) => {
         
 })
 
+
+//Evento de tipo change que actua al cambiar las opciones de moneda predeterminada y hace las
+//conversiones de divisa necesarias para visualizar el subtotal, el coste de envio, y el total
+//en la divisa determinada.
 moneyOptions.addEventListener("change", (e) => {
 
     moneyOptions.classList.remove("is-invalid");
@@ -36,6 +44,7 @@ moneyOptions.addEventListener("change", (e) => {
 
 });
 
+//Evento de tipo click que actua sobre la opcion de pago con tarjeta de credito.
 cardOption.addEventListener("click", () => {
 
     cardOption.classList.remove("is-invalid");
@@ -76,6 +85,7 @@ cardOption.addEventListener("click", () => {
 
 });
 
+////Evento de tipo click que actua sobre la opcion de pago con transferencia bancaria.
 bankOption.addEventListener("click", () => {
 
     cardOption.classList.remove("is-invalid");
@@ -125,6 +135,7 @@ bankOption.addEventListener("click", () => {
 
 });
 
+//Evento de tipo click que actua sobre el boton de cancelar compra.
 cancelBtn.addEventListener("click", () => {
 
     const bankArea = document.getElementById("bank-area");
@@ -169,6 +180,9 @@ cancelBtn.addEventListener("click", () => {
     cardExpInput.disabled = true;
     cardCvvInput.disabled = true;
 
+    cardOption.classList.remove("is-invalid");
+    bankOption.classList.remove("is-invalid");
+
     cardOption.checked = false;
     bankOption.checked = false;
     
@@ -179,6 +193,8 @@ cancelBtn.addEventListener("click", () => {
 
 });
 
+
+//Función que despliega un cartel que notifica cuando la compra se realizo correctamente.
 const showBuySuccess = () => {
     document.getElementById("msg-container").innerText = msg;
     document.getElementById("buy-success").classList.add("show");
@@ -187,6 +203,7 @@ const showBuySuccess = () => {
     }, 2500);
 }
 
+//Función que valida los datos de pago.
 const validatePay = () =>{
 
     const cardHoldersNameInput = document.getElementById("typeName");
@@ -284,9 +301,14 @@ const validatePay = () =>{
 
 };
 
+//Evento de tipo click que actua sobre el boton de confirmacion de pago y
+//ejecuta la funcion que valida los datos de pago y si son correctos
+//cierra el modal y ejecuta la funcion que muestra un cartel que
+//notifica al usuario que la compra fue concretada.
 payBtn.addEventListener("click", validatePay);
 
 
+//Función que valida los datos de compra.
 const validateBuy = () =>{
 
     const moneyOptions = document.getElementById("money-options");
@@ -386,6 +408,9 @@ const validateBuy = () =>{
 
 };
 
+//Evento de tipo click sobre el boton de compra que
+//ejecuta la funcíon que valida los datos de compra
+//y si son correctos despliega el modal de confirmacion.
 buyBtn.addEventListener("click", validateBuy);
 
 const deleteArticle = (id) =>{
@@ -404,6 +429,9 @@ const deleteArticle = (id) =>{
 
 };
 
+
+//Función que toma un id y un nuevo valor de Count y modifica el contador
+//de un articulo de determinado id.
 const updateArticleCount = (id, newCount) => {
 
     let purchaseOrder = JSON.parse(localStorage.getItem(`purchaseOrder${user}`));
@@ -428,6 +456,9 @@ const updateArticleCount = (id, newCount) => {
 
 };
 
+
+//Función que calcula el subtotal general, el costo de envio y el total a pagar
+//y muestra los datos expresados en determinada divisa en pantalla. 
 const calcTotal = () => {
 
     const defaultOption = document.getElementById("default");
@@ -554,6 +585,9 @@ const calcTotal = () => {
     }
 }
 
+
+//Función que calcula el subtotal individual para cada articulo en base a su id
+//multiplicando su precio unitario por la cantidad deseada de este articulo.
 const calcSubtotal = (price, id) =>{
 
     subTotal = parseInt(price);
@@ -574,8 +608,11 @@ const calcSubtotal = (price, id) =>{
 
     updateArticleCount(id, qty);
 
-}
+};
 
+
+//Función que aumenta la cantidad deseada de un articulo y calcula el subtotal
+//correspondiente para ese mismo articulo.
 const changeSubtotalPlus = (id, price) =>{
 
     subTotal = parseInt(price);
@@ -603,6 +640,9 @@ const changeSubtotalPlus = (id, price) =>{
     updateArticleCount(id, qtyValue);
 };
 
+
+//Función que disminuye la cantidad deseada de un articulo y calcula el subtotal
+//correspondiente para ese mismo articulo.
 const changeSubtotalMinus = (id, price) =>{
 
     subTotal = parseInt(price);
@@ -632,6 +672,8 @@ const changeSubtotalMinus = (id, price) =>{
     updateArticleCount(id, qtyValue);
 };
 
+//Función que muestra los articulos existentes en nuestro carrito en pantalla con toda
+//la información necesaria de el mismo.
 const showCartArticles = () => {
 
     let dolarsCount = 0;
@@ -759,7 +801,7 @@ const showCartArticles = () => {
 
 
 
-
+//Evento async de tipo carga que actua luego de cargar todos los elementos del DOM. 
 document.addEventListener("DOMContentLoaded", async () => {
 
     //Condicional que evalua si el usuario no esta logeado y
@@ -774,6 +816,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         logOutEvent();
     }
 
+    //Fetch al mensaje de compra almacenado en la api de JAP
     const buyMsjObj = await getJSONData(CART_BUY_URL)
     if (buyMsjObj.status === "ok"){
         msg = buyMsjObj.msg;
@@ -781,6 +824,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let purchaseOrder = JSON.parse(localStorage.getItem(`purchaseOrder${user}`));
 
+    //Fetch al objeto del articulo precargado en nuestro carrito
+    //almacenado en la api de JAP.
     const cartObj = await getJSONData(cartURL);
     if(cartObj.status === "ok" && purchaseOrder === null){
         cartInfo = (({user, articles}) => ({user, articles}))(cartObj);
