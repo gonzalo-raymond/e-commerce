@@ -413,6 +413,7 @@ const validateBuy = () =>{
 //y si son correctos despliega el modal de confirmacion.
 buyBtn.addEventListener("click", validateBuy);
 
+//Función que elimina el articulo con el id que le pasamos por parametro del carrito.
 const deleteArticle = (id) =>{
 
     let purchaseOrder = JSON.parse(localStorage.getItem(`purchaseOrder${user}`));
