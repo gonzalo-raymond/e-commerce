@@ -921,3 +921,17 @@ input#número.form-control.form-control-lg{
   position: absolute;
   top: 65px;
 }
+
+.alert-cart-mod{
+  position: absolute;
+  top: 190px;
+  left: 910px;
+  height: 50px;
+  width: 300px;
+  padding-right: 16px;
+}
+
+.alert-cart-mod p{
+  margin-top: -5px;
+}
+

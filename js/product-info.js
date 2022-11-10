@@ -51,6 +51,15 @@ function setProdID(id) {
   window.location = "product-info.html"
 };
 
+function showAlertSuccess() {
+
+  document.getElementById("alert-success").classList.add("show");
+  setTimeout(()=>{
+      document.getElementById("alert-success").classList.remove("show"); 
+  }, 2500);
+  
+};
+
 // Función que muestra en pantalla la informacón de un producto.
 const showProductInfo = () => {
 
@@ -140,6 +149,7 @@ const showProductInfo = () => {
 
       window.localStorage.setItem(`purchaseOrder${user}`, JSON.stringify(purchaseOrder));
       cartNotification();
+      showAlertSuccess();
 
     }else{
 
@@ -158,6 +168,7 @@ const showProductInfo = () => {
 
         window.localStorage.setItem(`purchaseOrder${user}`, JSON.stringify(purchaseOrder));
         cartNotification();
+        showAlertSuccess();
 
       }else{
 
@@ -176,7 +187,7 @@ const showProductInfo = () => {
 
         window.localStorage.setItem(`purchaseOrder${user}`, JSON.stringify(purchaseOrder));
         cartNotification();
-        
+        showAlertSuccess();
 
       }
 
