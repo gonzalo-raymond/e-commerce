@@ -23,6 +23,13 @@ let totalCost = 0,
     allPesos = false,
     msg = "";
 
+
+function setProdID(id) {
+    localStorage.setItem("prodID", id);
+    window.location = "product-info.html"
+};
+
+
 // Evento de tipo change que actua al cambiar las opciones de envio y calcula
 // el costo de envio y el total de compra dependiendo la opcion de envio seleccionada. 
 deliverOptions.addEventListener("change", (e) => {
@@ -201,7 +208,7 @@ const showBuySuccess = () => {
     setTimeout(()=>{
         document.getElementById("buy-success").classList.remove("show");  
     }, 2500);
-}
+};
 
 //Función que valida los datos de pago.
 const validatePay = () =>{
@@ -737,7 +744,7 @@ const showCartArticles = () => {
 
         articlesContent += `
             <div class="row d-flex justify-content-around align-items-center cart-content ${first}">
-                <div class="col-md-3 col-lg-3 col-xl-3 cart-item">
+                <div onclick="setProdID(${id})" class="col-md-3 col-lg-3 col-xl-3 cart-item">
                     <img src="${image}" width="150" class="img-fluid rounded-3 no-max-width" alt="${name}">
                     <h6 class="text-correct article-name">${name}</h6>
                 </div>
