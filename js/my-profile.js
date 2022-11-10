@@ -264,6 +264,7 @@ saveBtn.addEventListener("click", () => {
 
         showAlertSuccess();
         saveBtn.disabled = true;
+        discardBtn.disabled = true;
 
     }
 
