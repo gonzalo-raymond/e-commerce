@@ -296,6 +296,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    existChanges();
-
 });
