@@ -248,10 +248,23 @@ saveBtn.addEventListener("click", () => {
         }
 
         if(userEmailValue && userData.email !== userEmailValue){
+
+            let purchaseOrder = JSON.parse(localStorage.getItem(`purchaseOrder${userDataId}`));
+
+            let oldId = userDataId;
+
+            userData.email = userEmailValue;
+            userDataId = userEmailValue;
             
-            userData.firstName = userNameValue;
             window.localStorage.setItem(`userData${userDataId}`, JSON.stringify(userData));
-            
+            window.localStorage.setItem(`purchaseOrder${userDataId}`, JSON.stringify(purchaseOrder));
+
+            window.localStorage.removeItem(`userData${oldId}`);
+            window.localStorage.removeItem(`purchaseOrder${oldId}`);
+
+            window.localStorage.setItem("loginStatus", false);
+            location.reload();
+ 
         }
 
         if(userData.contactTelephoneNumber !== userContactNumberValue){
