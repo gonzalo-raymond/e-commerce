@@ -55,8 +55,8 @@ function showAlertSuccess() {
 
   document.getElementById("alert-success").classList.add("show");
   setTimeout(()=>{
-      document.getElementById("alert-success").classList.remove("show"); 
-  }, 2500);
+    document.getElementById("alert-success").classList.remove("show"); 
+  }, 1200);
   
 };
 
@@ -194,6 +194,10 @@ const showProductInfo = () => {
       
       
     }
+
+    setTimeout(()=>{
+      document.getElementById("btn-add-cart").blur(); 
+    }, 200);
 
   })
 
@@ -504,6 +508,10 @@ sendCommentBtn.addEventListener("click", () => {
     commentTextArea.classList.add("is-invalid");
     starsWidget.classList.remove("is-invalid");
   }
+
+  setTimeout(()=>{
+    sendCommentBtn.blur(); 
+  }, 200);
  
 }),
 

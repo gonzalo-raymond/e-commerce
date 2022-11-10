@@ -38,6 +38,15 @@ document.addEventListener("DOMContentLoaded", function(e){
         logOutEvent();
     }
 
+    document.getElementById("closeModal").addEventListener("click", () => {
+
+        
+        setTimeout(()=>{
+            document.getElementById("openModal").blur();
+        }, 350);
+
+    });
+
     document.getElementById("productCountInput").addEventListener("change", function(){
         productCount = this.value;
         updateTotalCosts();
@@ -151,7 +160,16 @@ document.addEventListener("DOMContentLoaded", function(e){
     
             msgToShowHTML.innerHTML = msgToShow;
             document.getElementById("alertResult").classList.add("show");
+
+            setTimeout(()=>{
+                document.getElementById("alertResult").classList.remove("show");
+            }, 1500);
             
         }
+
+        setTimeout(()=>{
+            document.getElementById("sellBtn").blur(); 
+        }, 200);
+
     });
 });

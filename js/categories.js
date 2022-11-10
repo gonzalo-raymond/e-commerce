@@ -45,6 +45,23 @@ function sortCategories(criteria, array){
     return result
 }
 
+document.getElementById("rangeFilterCountMin").addEventListener("input", () => {
+
+    if(document.getElementById("rangeFilterCountMin").value === ""){
+        document.getElementById("rangeFilterCountMin").blur();
+    }
+
+});
+
+
+document.getElementById("rangeFilterCountMax").addEventListener("input", () => {
+
+    if(document.getElementById("rangeFilterCountMax").value === ""){
+        document.getElementById("rangeFilterCountMax").blur();
+    }
+
+});
+
 function setCatID(id) {
     localStorage.setItem("catID", id);
     window.location = "products.html"
@@ -118,18 +135,38 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 
     document.getElementById("sortAsc").addEventListener("click", function(){
         sortAndShowCategories(ORDER_ASC_BY_NAME);
+
+        setTimeout(()=>{
+            document.getElementById("sortAsc").blur();
+        }, 200);
+
     });
 
     document.getElementById("sortDesc").addEventListener("click", function(){
         sortAndShowCategories(ORDER_DESC_BY_NAME);
+
+        setTimeout(()=>{
+            document.getElementById("sortDesc").blur();
+        }, 200);
+
     });
 
     document.getElementById("sortAscByCount").addEventListener("click", function(){
         sortAndShowCategories(ORDER_ASC_BY_PROD_COUNT);
+
+        setTimeout(()=>{
+            document.getElementById("sortAscByCount").blur();
+        }, 200);
+
     });
 
     document.getElementById("sortDescByCount").addEventListener("click", function(){
         sortAndShowCategories(ORDER_DESC_BY_PROD_COUNT);
+
+        setTimeout(()=>{
+            document.getElementById("sortDescByCount").blur();
+        }, 200);
+
     });
 
     document.getElementById("clearRangeFilter").addEventListener("click", function(){
@@ -140,6 +177,11 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         maxCount = undefined;
 
         showCategoriesList();
+
+        setTimeout(()=>{
+            document.getElementById("clearRangeFilter").blur();
+        }, 200);
+
     });
 
     document.getElementById("rangeFilterCount").addEventListener("click", function(){
@@ -163,5 +205,10 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         }
 
         showCategoriesList();
+
+        setTimeout(()=>{
+            document.getElementById("rangeFilterCount").blur();
+        }, 200);
+        
     });
 });

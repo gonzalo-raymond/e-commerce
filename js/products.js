@@ -44,8 +44,30 @@ searchInput.addEventListener("keyup", (e)=>{
             searchResult.classList.add("ocultar");
        }
     }
+
+    if(searchInput.value === ""){
+        searchInput.blur();
+    }
+
 });
 
+
+document.getElementById("rangeFilterPriceMin").addEventListener("input", () => {
+
+    if(document.getElementById("rangeFilterPriceMin").value === ""){
+        document.getElementById("rangeFilterPriceMin").blur();
+    }
+
+});
+
+
+document.getElementById("rangeFilterPriceMax").addEventListener("input", () => {
+
+    if(document.getElementById("rangeFilterPriceMax").value === ""){
+        document.getElementById("rangeFilterPriceMax").blur();
+    }
+
+});
 
 
 //Función que toma un array de productos y un criterio como parametros
@@ -174,12 +196,22 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     //segun criterio de precio de producto en orden ascendente.
     document.getElementById("sortAscByPrice").addEventListener("click", function(){
         sortAndShowProducts(ORDER_ASC_BY_PROD_PRICE);
+
+        setTimeout(()=>{
+            document.getElementById("sortAscByPrice").blur();
+        }, 200);
+
     });
 
     //Evento de tipo click que ordena y muestra la lista de productos
     //segun criterio de precio de producto en orden descendente.
     document.getElementById("sortDescByPrice").addEventListener("click", function(){
         sortAndShowProducts(ORDER_DESC_BY_PROD_PRICE);
+
+        setTimeout(()=>{
+            document.getElementById("sortDescByPrice").blur();
+        }, 200);
+
     });
 
     //Evento de tipo click que ordena y muestra la lista de productos
@@ -187,6 +219,11 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     //orden descendente.
     document.getElementById("sortDescByRel").addEventListener("click", function(){
         sortAndShowProducts(ORDER_DESC_BY_PROD_REL);
+
+        setTimeout(()=>{
+            document.getElementById("sortDescByRel").blur();
+        }, 200);
+
     });
 
     //Evento de tipo click que le hace reset al filtro de rango de precio y
@@ -199,6 +236,11 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         maxPrice = undefined;
   
         showProductsList();
+
+        setTimeout(()=>{
+            document.getElementById("clearRangeFilter").blur();
+        }, 200);
+
     });
 
     //Evento de tipo click que muestra la lista de productos que cumplen con un
@@ -224,5 +266,10 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         }
 
         showProductsList();
+
+        setTimeout(()=>{
+            document.getElementById("rangeFilterPrice").blur();
+        }, 200);
+
     });
 });
