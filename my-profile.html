@@ -89,17 +89,38 @@
               <div class="row justify-content-center">
                 <div class="col-lg-8 div-width">
                   <div class="row gx-3 flex-column">
-                    <div class="col-6 mb-3"> 
-                      <label class="form-label">Nombre</label>   
-                      <input class="form-control input-width" type="text" placeholder="Tu Nombre" id="nameInput"> 
+                    <div class="col-9 mb-3"> 
+                      <label class="form-label">Nombre <span class="required">*</span></label>   
+                      <input class="form-control input-width" type="text" placeholder="Tu Nombre" spellcheck="false" autocomplete="off" id="nameInput">
+                      <div class="invalid-feedback profile-validation">
+                        <p class="profile-validation-msg">Este campo es Obligatorio!</p> 
+                      </div>
                     </div> <!-- col .// -->
                     <div class="col-6 mb-3"> 
-                      <label class="form-label">Apellido</label> 
-                      <input class="form-control input-width" type="text" placeholder="Tu Apellido" id="lastNameInput"> 
+                      <label class="form-label">Segundo Nombre</label>   
+                      <input class="form-control input-width" type="text" placeholder="Tu Segundo Nombre" spellcheck="false" autocomplete="off" id="secondNameInput"> 
+                    </div> <!-- col .// -->
+                    <div class="col-6 mb-3"> 
+                      <label class="form-label">Apellido <span class="required">*</span></label> 
+                      <input class="form-control input-width" type="text" placeholder="Tu Apellido" spellcheck="false" autocomplete="off" id="lastNameInput">
+                      <div class="invalid-feedback profile-validation">
+                        <p class="profile-validation-msg">Este campo es Obligatorio!</p>
+                      </div> 
+                    </div> <!-- col .// -->
+                    <div class="col-6 mb-3"> 
+                      <label class="form-label">Segundo Apellido</label> 
+                      <input class="form-control input-width" type="text" placeholder="Tu Segundo Apellido" spellcheck="false" autocomplete="off" id="secondLastNameInput"> 
                     </div> <!-- col .// -->
                     <div class="col-lg-6 col-md-6 mb-3"> 
-                      <label class="form-label">Email</label> 
-                      <input class="form-control input-width" type="email" placeholder="Tu Email" id="emailInput"> 
+                      <label class="form-label">Email <span class="required">*</span></label> 
+                      <input class="form-control input-width" type="email" placeholder="Tu Email" id="emailInput">
+                      <div class="invalid-feedback profile-validation">
+                        <p class="profile-validation-msg">Este campo es Obligatorio!</p> 
+                      </div>
+                    </div> <!-- col .// -->
+                    <div class="col-lg-6 col-md-6 mb-3"> 
+                      <label class="form-label pre">Teléfono de Contacto</label> 
+                      <input class="form-control input-width" type="number" placeholder="Tu Número de Teléfono" id="contactNumberInput"> 
                     </div> <!-- col .// -->
                   
                   </div> <!-- row.// -->
@@ -117,8 +138,10 @@
                     </div>
                   </div>
                 </aside> <!-- col.// -->
-              </div> <!-- row.// --> <br> 
-              <button class="btn btn-primary" type="submit" id="saveBtn">Guardar Cambios</button>
+              </div> <!-- row.// --> <br>
+              <button class="btn btn-secondary mx-5" type="button" id="discardBtn" disabled>Descartar Cambios</button> 
+              <button class="btn btn-primary" type="button" id="saveBtn" disabled>Guardar Cambios</button>
+              
             </form>
             <hr class="my-4">
           </div> <!-- card-body .// -->
@@ -136,6 +159,9 @@
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
   </footer>
+  <div class="alert alert-success alert-dismissible fade text-center alert-hide alert-mod" role="alert" id="alert-success">
+    <p>Datos guardados correctamente</p>
+  </div>
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>

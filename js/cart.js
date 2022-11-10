@@ -811,7 +811,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         replace("login.html");
     }else{
         showProfileMenu();
-        if(userDataG != null){
+        if(userData != null){
             //userImg.src = userDataG.profileImg;
         }
         logOutEvent();

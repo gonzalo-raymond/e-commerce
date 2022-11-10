@@ -312,7 +312,7 @@ img, svg {
 #profile-container{
   display: flex;
   justify-content: center;
-  margin-top: 110px;
+  margin-top: 30px;
 }
 
 #profile-card{
@@ -889,4 +889,35 @@ input#número.form-control.form-control-lg{
 #empty-cart-text{
   font-size: 50px;
   margin-top: 100px;
+}
+
+.pre{
+  white-space: pre;
+}
+
+.required{
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+  color: red;
+}
+
+.profile-validation{
+  height: 10px;
+  margin-top: 0;
+}
+
+.profile-validation-msg{
+  white-space: pre;
+  margin-top: 4px;
+}
+
+.alert-hide{
+  position: absolute;
+  z-index: -10;
+}
+
+.alert-mod{
+  position: absolute;
+  top: 65px;
 }

@@ -12,13 +12,12 @@ let cartInfo = [];
 let cartArticles = [];
 
 let user = "";
+let userDataId = localStorage.getItem("userDataEmail");
+let userCartId = 25801;
 
 let cartCount = 0;
 
-let userId = 25801;
-
-let cartURL = `${CART_INFO_URL}${userId}${EXT_TYPE}`
-
+let cartURL = `${CART_INFO_URL}${userCartId}${EXT_TYPE}`
 
 //Función que le asigna un valor booleano a el status del login.
 let loginStatus = (booleano)=>{
@@ -28,56 +27,33 @@ let loginStatus = (booleano)=>{
 //Variable que lee el valor de login status desde localstorage.
 let loginStatusInfo = window.localStorage.getItem("loginStatus");
 
-
-//Variable que contiene el email del usuario
-let userEmailInfo = window.localStorage.getItem("userEmail");
-
-//Variable que guarda los datos de google del usuario llamados desde el
+//Variable que guarda los datos del usuario llamados desde el
 //localstorage en formato de objeto.
-let userDataG = JSON.parse(window.localStorage.getItem("userData"));
+let userData = JSON.parse(window.localStorage.getItem(`userData${userDataId}`));
 
 let showProfileMenu = ()=>{
 
   let userMenuTitle = document.getElementById("navbarDarkDropdownMenuLink");
   let userProfileImg = document.getElementById("profile__img");
   
-  if(userDataG != null){
-    userMenuTitle.innerText = userDataG.email;
-    user = userDataG.email;
-    userProfileImg.src = userDataG.profileImg;
-  }else if(userEmailInfo != null){
-    userMenuTitle.innerText = userEmailInfo;
-    user = userEmailInfo;
+  if(userData != null){
+    userMenuTitle.innerText = userData.email;
+    user = userData.email;
+    userProfileImg.src = userData.profileImg;
   }
 }
-
-if(loginStatusInfo === "true"){
-  showProfileMenu();
-}
-
 
 //Función que elimina los datos del usuario almacenados en
 // el localstorage.
 let userDataClean = ()=>{ 
   
-  if(userDataG != null && userEmailInfo != null){
-    window.localStorage.removeItem("userData");
-    window.localStorage.removeItem("userEmail");
-  }else if(userDataG != null){
-    window.localStorage.removeItem("userData");
-  }else if(userEmailInfo != null){
-    window.localStorage.removeItem("userEmail");
-  }
-
-  let purchaseOrder = JSON.parse(localStorage.getItem(`purchaseOrder${user}`));
+  let purchaseOrder = JSON.parse(localStorage.getItem(`purchaseOrder${userDataId}`));
 
   if(purchaseOrder.articles.length === 0){
-    localStorage.removeItem(`purchaseOrder${user}`);
+    localStorage.removeItem(`purchaseOrder${userDataId}`);
   }
 
 }
-
-
 
 //Función que cambia el loginStatus a false
 //y elimina los datos del usuario del localstorage.
@@ -145,9 +121,6 @@ const cartNotification = () => {
 
 };
 
-
-
-
 //Función async await que realiza un fetch y devuelve objeto json()
 const  getJSONData = async (url) => {
   showSpinner();
@@ -176,19 +149,26 @@ const  getJSONData = async (url) => {
 
 document.addEventListener("DOMContentLoaded", async () =>{
 
-  cartNotification();
-  let purchaseOrder = JSON.parse(localStorage.getItem(`purchaseOrder${user}`));
+  
 
-  const cartObj = await getJSONData(cartURL);
-  if (cartObj.status === "ok" && purchaseOrder === null){
-
-    cartInfo = (({user, articles}) => ({user, articles}))(cartObj);
-    cartArticles = cartInfo.articles;
-    localStorage.setItem(`purchaseOrder${user}`, JSON.stringify(cartInfo))
-    cartNotification();        
-  }else{
-    cartInfo = purchaseOrder;
-    cartArticles = cartInfo.articles
+  if(window.location.pathname.split("/")[1] !== "login.html" && loginStatusInfo === "true"){
+    showProfileMenu();
     cartNotification();
+
+    let purchaseOrder = JSON.parse(localStorage.getItem(`purchaseOrder${user}`));
+    
+    const cartObj = await getJSONData(cartURL);
+    if (cartObj.status === "ok" && purchaseOrder === null){
+
+      cartInfo = (({user, articles}) => ({user, articles}))(cartObj);
+      cartArticles = cartInfo.articles;
+      localStorage.setItem(`purchaseOrder${user}`, JSON.stringify(cartInfo))
+      cartNotification();        
+    }else{
+      cartInfo = purchaseOrder;
+      cartArticles = cartInfo.articles
+      cartNotification();
+    }
   }
+
 });

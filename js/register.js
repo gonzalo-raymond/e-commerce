@@ -58,9 +58,35 @@ window.addEventListener("load", ()=> {
     //validación de datos además evalua las condiciones
     //que determinan que cartel debe mostrarse.
     regBtn.addEventListener("click", ()=> {
+
         validateFields();
         if(nameOk && lastNameOk && emailOk && passOk && passConfirmOk && termsOk){
-            showAlertSuccess();
+
+            let sameUserData = window.localStorage.getItem(`userData${emailInput.value}`);
+
+            if(sameUserData === null){
+
+
+                let userData = {
+                    firstName: nameInput.value,
+                    secondName: "",
+                    lastName: lastNameInput.value,
+                    secondLastName: "",
+                    email: emailInput.value,
+                    contactTelephoneNumber: "",
+                    profileImg: "img/img_perfil.png"
+                };
+              
+                window.localStorage.setItem(`userData${emailInput.value}`, JSON.stringify(userData));
+                
+                showAlertSuccess();
+                replace("login.html");
+                
+            }else{
+                showAlertError();
+            }
+
+            
         }else{
             showAlertError();
         } 

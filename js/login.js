@@ -46,15 +46,10 @@ const loginSubmitEvent = (e) => {
   let passOk = false;
   loginStatus(false);
 
-  
-
   //Capturando los valores ingresados por el usuario.
   const emailValue = emailInput.value.trim();
   const passValue = passInput.value.trim();
 
-  
-
-  
   //Validando campo Email.
   if(!emailValue){
     validateFail(emailInput, "Ingresa tu e-mail");
@@ -83,8 +78,30 @@ const loginSubmitEvent = (e) => {
   //y permite o deniega la entrada a la pagina.
   if (emailOk && passOk){
     loginStatus(true);
-    window.localStorage.setItem("userEmail", emailValue);
+
+    let sameUserData = JSON.parse(window.localStorage.getItem(`userData${emailValue}`));
+
+    if(sameUserData === null){
+
+      let userData = {
+        firstName: "",
+        secondName: "",
+        lastName: "",
+        secondLastName: "",
+        email: emailValue,
+        contactTelephoneNumber: "",
+        profileImg: "img/img_perfil.png"
+      };
+  
+      window.localStorage.setItem(`userData${emailValue}`, JSON.stringify(userData));
+    
+    }
+
+    let userDataEmail = JSON.parse(window.localStorage.getItem(`userData${emailValue}`)).email;
+    window.localStorage.setItem("userDataEmail", userDataEmail);
+ 
     replace("index.html")
+    
   }else{
     loginStatus(false);
     userDataClean();
@@ -122,20 +139,28 @@ globalThis.handleCredentialResponse = async (response) => {
   //Decodificando datos.
   let responsePayload = decodeJwtResponse(response.credential);
 
-  //Creando objeto que contiene los datos del usuario.
-  let userData = {
-    id: responsePayload.sub,
-    fullName: responsePayload.name,
-    firstName: responsePayload.given_name,
-    lastName: responsePayload.family_name,
-    email: responsePayload.email,
-    emailVerified: responsePayload.email_verified,
-    profileImg: responsePayload.picture
-  };
+  let sameUserData = JSON.parse(window.localStorage.getItem(`userData${responsePayload.email}`));
 
-  //Almacenando los datos del usuario en localstorage.
-  window.localStorage.setItem("userData", JSON.stringify(userData));
+  if(sameUserData === null){
+
+    let userData = {
+      firstName: responsePayload.given_name,
+      secondName: "",
+      lastName: responsePayload.family_name,
+      secondLastName: "",
+      email: responsePayload.email,
+      contactTelephoneNumber: "",
+      profileImg: responsePayload.picture
+    };
   
+    //Almacenando los datos del usuario en localstorage.
+    window.localStorage.setItem(`userData${responsePayload.email}`, JSON.stringify(userData));
+  
+  }
+
+  let userDataEmail = JSON.parse(window.localStorage.getItem(`userData${responsePayload.email}`)).email;
+  window.localStorage.setItem("userDataEmail", userDataEmail);
+
   //Cambiando Status del login y redireccionando a index.html.
   loginStatus(true);
   replace("index.html");

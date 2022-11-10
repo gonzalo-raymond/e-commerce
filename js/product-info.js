@@ -291,12 +291,9 @@ addComment = (array) => {
 
   let date = `${nonFormatDate.getFullYear()}-${secondDigitMonth}${nonFormatDate.getMonth() + 1}-${secondDigitDate}${nonFormatDate.getDate()} ${new Intl.DateTimeFormat('es-UY', timeOptions).format(nonFormatDate)}`;
      
-  if(userDataG != null){
-    userName = userDataG.email;
-    userImgUrl = userDataG.profileImg;
-  }else if(userEmailInfo != null){
-    userName = userEmailInfo;
-    userImgUrl = "img/img_perfil.png"
+  if(userData != null){
+    userName = userData.email;
+    userImgUrl = userData.profileImg;
   }
 
   let newComment = {
@@ -524,8 +521,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     replace("login.html");
   }else{
     showProfileMenu();
-    if(userDataG != null){
-      userImg.src = userDataG.profileImg;
+    if(userData != null){
+      userImg.src = userData.profileImg;
     }
     logOutEvent();
   }
