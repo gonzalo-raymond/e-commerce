@@ -40,7 +40,6 @@ userNameInput.addEventListener("input", () => {
 
         if(userNameInput.value === ""){
             userNameInput.classList.add("is-invalid");
-            saveBtn.disabled = true;
         }else{
             userNameInput.classList.remove("is-invalid"); 
         }
