@@ -91,50 +91,57 @@
                   <div class="row gx-3 flex-column">
                     <div class="col-9 mb-3"> 
                       <label class="form-label">Nombre <span class="required">*</span></label>   
-                      <input class="form-control input-width" type="text" placeholder="Tu Nombre" spellcheck="false" autocomplete="off" id="nameInput">
+                      <input class="form-control input-width trigger-enter" type="text" placeholder="Tu Nombre" spellcheck="false" autocomplete="off" id="nameInput">
                       <div class="invalid-feedback profile-validation">
                         <p class="profile-validation-msg">Este campo es Obligatorio!</p> 
                       </div>
                     </div> <!-- col .// -->
                     <div class="col-6 mb-3"> 
                       <label class="form-label">Segundo Nombre</label>   
-                      <input class="form-control input-width" type="text" placeholder="Tu Segundo Nombre" spellcheck="false" autocomplete="off" id="secondNameInput"> 
+                      <input class="form-control input-width trigger-enter" type="text" placeholder="Tu Segundo Nombre" spellcheck="false" autocomplete="off" id="secondNameInput"> 
                     </div> <!-- col .// -->
                     <div class="col-6 mb-3"> 
                       <label class="form-label">Apellido <span class="required">*</span></label> 
-                      <input class="form-control input-width" type="text" placeholder="Tu Apellido" spellcheck="false" autocomplete="off" id="lastNameInput">
+                      <input class="form-control input-width trigger-enter" type="text" placeholder="Tu Apellido" spellcheck="false" autocomplete="off" id="lastNameInput">
                       <div class="invalid-feedback profile-validation">
                         <p class="profile-validation-msg">Este campo es Obligatorio!</p>
                       </div> 
                     </div> <!-- col .// -->
                     <div class="col-6 mb-3"> 
                       <label class="form-label">Segundo Apellido</label> 
-                      <input class="form-control input-width" type="text" placeholder="Tu Segundo Apellido" spellcheck="false" autocomplete="off" id="secondLastNameInput"> 
+                      <input class="form-control input-width trigger-enter" type="text" placeholder="Tu Segundo Apellido" spellcheck="false" autocomplete="off" id="secondLastNameInput"> 
                     </div> <!-- col .// -->
                     <div class="col-lg-6 col-md-6 mb-3"> 
                       <label class="form-label">Email <span class="required">*</span></label> 
-                      <input class="form-control input-width" type="email" placeholder="Tu Email" id="emailInput">
+                      <input class="form-control input-width trigger-enter" type="email" placeholder="Tu Email" id="emailInput">
                       <div class="invalid-feedback profile-validation">
                         <p class="profile-validation-msg">Este campo es Obligatorio!</p> 
                       </div>
                     </div> <!-- col .// -->
                     <div class="col-lg-6 col-md-6 mb-3"> 
                       <label class="form-label pre">Teléfono de Contacto</label> 
-                      <input class="form-control input-width" type="number" placeholder="Tu Número de Teléfono" id="contactNumberInput"> 
+                      <input class="form-control input-width trigger-enter" type="number" placeholder="Tu Número de Teléfono" id="contactNumberInput"> 
                     </div> <!-- col .// -->
                   
                   </div> <!-- row.// -->
                 </div> <!-- col.// -->
                 <aside class="col-lg-4">
                   <div class="text-lg-center mt-3"> 
-                    <img class="img-lg mb-3 img-avatar rounded-circle" src="img/img_perfil.png" width="120" alt="Foto de usuario" id="userImg">
+                    <img class="img-lg mb-3 img-avatar rounded-circle" src="img/img_perfil.png" width="120" height="120" alt="Foto de usuario" id="userImg">
                     <div> 
-                      <a class="btn btn-sm btn-light" href="#"> 
-                        <i class="fa fa-camera"></i> Subir Imagen 
-                      </a> 
-                      <a class="btn btn-sm btn-outline-danger" href="#"> 
+                      <a class="btn btn-sm btn-light mx-2" href="#" id="uploadImgBtn">
+                        <i class="fa fa-camera"></i>
+                        Subir Imagen 
+                      </a>
+                       
+                      <a class="btn btn-sm btn-outline-danger" href="#" id="deleteImg"> 
                         <i class="fa fa-trash"></i> 
-                      </a> 
+                      </a>
+                      
+                      <input type="file" name="avatar" class="d-none" accept="image/png, image/jpeg" id="uploadProfileImg">
+                      <div class="mt-2 invalid-feedback">
+                        <p>Archivo incorrecto: seleccione una imagen .JPG o .PNG</p>
+                      </div>
                     </div>
                   </div>
                 </aside> <!-- col.// -->

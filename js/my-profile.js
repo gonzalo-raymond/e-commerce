@@ -6,7 +6,13 @@ const userNameInput = document.querySelector("#nameInput"),
       userContactNumberInput = document.querySelector("#contactNumberInput"),
       userImg = document.querySelector("#userImg"),
       saveBtn = document.querySelector("#saveBtn"),
-      discardBtn = document.querySelector("#discardBtn");
+      discardBtn = document.querySelector("#discardBtn"),
+      uploadImgBtn = document.querySelector("#uploadImgBtn"),
+      uploadImgInput = document.querySelector("#uploadProfileImg"),
+      deleteProfileImgBtn = document.querySelector("#deleteImg"),
+      triggerEnterTargets = document.querySelectorAll(".trigger-enter");
+
+
 
 let sameName = true,
     sameSecondName = true,
@@ -14,6 +20,24 @@ let sameName = true,
     sameSecondLastName = true,
     sameEmail = true,
     sameContactNumber = true;
+
+for(let target of triggerEnterTargets){
+
+    target.addEventListener("keypress", (e) => {
+
+        if(e.key === "Enter"){
+
+            if(saveBtn.disabled === false){
+                target.blur();
+            }
+
+            saveBtn.click();
+            
+        }
+
+    });
+
+};
 
 function showAlertSuccess() {
     document.getElementById("alert-success").classList.remove("alert-hide");
@@ -27,6 +51,88 @@ function showAlertSuccess() {
     }, 3000);
 
 };
+
+
+uploadImgBtn.addEventListener("click", () => {
+
+    uploadImgInput.click();
+
+    setTimeout(()=>{
+        uploadImgBtn.blur();
+    }, 200);
+
+});
+
+uploadImgInput.addEventListener("change", () => {
+
+    const fileTypes = [
+        "image/apng",
+        "image/bmp",
+        "image/gif",
+        "image/jpeg",
+        "image/pjpeg",
+        "image/png",
+        "image/svg+xml",
+        "image/tiff",
+        "image/webp",
+        "image/x-icon"
+    ];
+
+    function validFileType(file) {
+        return fileTypes.includes(file.type);
+    }
+
+    if(validFileType(uploadImgInput.files[0])){
+
+        uploadImgInput.classList.remove("is-invalid");
+
+        const fr = new FileReader();
+
+        fr.readAsDataURL(uploadImgInput.files[0]);
+
+        fr.addEventListener("load", () => {
+
+            const profileImgUrl = fr.result;
+        
+            if(userData !== null){
+
+                userData.profileImg = profileImgUrl;
+
+                window.localStorage.setItem(`userData${userDataId}`, JSON.stringify(userData));
+
+                location.reload();
+
+            }
+
+        });
+        
+    }else{
+       
+        uploadImgInput.classList.add("is-invalid");
+
+    }
+
+    
+
+});
+
+deleteProfileImgBtn.addEventListener("click", () => {
+
+    if(userData !== null && userData.profileImg !== "img/img_perfil.png"){
+
+        userData.profileImg = "img/img_perfil.png";
+
+        window.localStorage.setItem(`userData${userDataId}`, JSON.stringify(userData));
+
+        location.reload();
+
+    }
+
+    setTimeout(()=>{
+        deleteProfileImgBtn.blur();
+    }, 200);
+
+});
 
 discardBtn.addEventListener("click", () => {
 
@@ -255,7 +361,7 @@ saveBtn.addEventListener("click", () => {
 
             userData.email = userEmailValue;
             userDataId = userEmailValue;
-            
+
             window.localStorage.setItem(`userData${userDataId}`, JSON.stringify(userData));
             window.localStorage.setItem(`purchaseOrder${userDataId}`, JSON.stringify(purchaseOrder));
 

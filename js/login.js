@@ -4,10 +4,17 @@ const warningEmail = document.getElementById("warning__email");
 const warningPass = document.getElementById("warning__pass");
 const emailInput = document.getElementById("email");
 const passInput = document.getElementById("pass");
+const loginBtn = document.getElementById("btnLogin");
 const regBtn = document.getElementById("btnRegister");
 
 regBtn.addEventListener("click", ()=>{
-  replace("register.html")
+
+  setTimeout(()=>{
+    regBtn.blur();
+  }, 100);
+
+  replace("register.html");
+
 });
 
 
@@ -17,6 +24,7 @@ const validateFail = (input, msg) => {
   const warning = inputContainer.querySelector("div");
   warning.innerHTML = `<p>${msg}</p>`
   input.classList.add('is-invalid');
+  //input.blur();
 };
 
 //Función que actua cuando un campo es valido.
@@ -25,6 +33,7 @@ const validateOk = (input) => {
   const warning = inputContainer.querySelector("div");
   warning.innerHTML = ``;
   input.classList.remove('is-invalid');
+  input.blur();
 };
 
 //Función que valida el email
@@ -39,6 +48,10 @@ const validateEmail = (email) => {
 const loginSubmitEvent = (e) => {
 
   e.preventDefault();
+
+  setTimeout(()=>{
+    loginBtn.blur();
+  }, 200);
 
   //Estados de Validación necesarios 
   //para permitir o denegar acceso a la pagina.

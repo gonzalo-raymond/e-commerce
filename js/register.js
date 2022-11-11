@@ -27,9 +27,18 @@ window.addEventListener("load", ()=> {
     const passConfirmInput = document.getElementById("password2");
     const checkbox = document.getElementById("terminos");
     const regBtn = document.getElementById("regBtn");
+    const backBtn = document.getElementById("goBack");
 
 
-   
+    backBtn.addEventListener("click", () => {
+
+        setTimeout(()=>{
+            backBtn.blur();
+        }, 200);
+        
+        replace("login.html");
+
+    });
 
     //Escuchando Eventos de click y presion de tecla enter
     // que actua sobre el estado del checkbox de terminos y condiciones.
@@ -47,8 +56,7 @@ window.addEventListener("load", ()=> {
                 checkbox.value = "on";
                 checkbox.checked = (!checkbox.checked);
             }else{
-                checkbox.value = "off";
-                checkbox.checked = (!checkbox.checked);
+                regBtn.click();
             }
         } 
     });
@@ -93,20 +101,18 @@ window.addEventListener("load", ()=> {
     });
 
     //Codigo que permite que al presionar la tecla Enter
-    //el boton de registro reciba un click.
-    let inputs = document.getElementsByTagName("input");
-    let inputsIdsArray = [];
-    for(let n=0 ; n < inputs.length  ; n++){
-        let idInput = inputs[n].attributes.id.value;
-        inputsIdsArray.push(idInput); 
-    }
+    //hacerle focus al siguiente input.
+    let inputs = document.getElementsByClassName("trigger-tab");
+    let allInputs = document.getElementsByTagName("input");
 
-    for(let id of inputsIdsArray){
-        let target = document.getElementById(id);
+    for(let n=0; n < inputs.length; n++){
+        let target = inputs[n];
+        let nextInput = allInputs[n+1];
+        
         target.addEventListener("keypress", (e)=>{
             if(e.key === "Enter"){
                 e.preventDefault
-                regBtn.click();
+                nextInput.focus();
             }
         });  
     };
