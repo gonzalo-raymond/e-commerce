@@ -21,6 +21,7 @@ let sameName = true,
     sameEmail = true,
     sameContactNumber = true;
 
+
 for(let target of triggerEnterTargets){
 
     target.addEventListener("keypress", (e) => {
